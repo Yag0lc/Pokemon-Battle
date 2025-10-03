@@ -16,7 +16,6 @@ with open("data/pokemon.json", encoding="utf-8") as f:
 
 
 
-from flask import current_app
 
 # Carga de datos del fichero
 ...
