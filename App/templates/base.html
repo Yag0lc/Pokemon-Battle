@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Mi sitio{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'base.css' %}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
+    {% block styles %}{% endblock %}
 </head>
 <body>
     <header>
         <nav class="nav">
-            <a class="nav-link active" aria-current="page" href="#">Lista Pokemon</a>
+            <a class="nav-link active" aria-current="page" href="{{ url_for('home') }}">Lista Pokemon</a>
             <a class="nav-link" href="#">Link</a>
             <a class="nav-link" href="#">Link</a>
         </nav>
     </header>
 
-    <!-- 👇 Aquí es donde las páginas hijas insertarán su contenido -->
     <main>
         {% block content %}
         {% endblock %}
