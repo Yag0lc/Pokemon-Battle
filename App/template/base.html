@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Mi sitio{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+</head>
+<body>
+    <header>
+        <nav class="nav">
+            <a class="nav-link active" aria-current="page" href="#">Lista Pokemon</a>
+            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link" href="#">Link</a>
+        </nav>
+    </header>
+
+    <!-- 👇 Aquí es donde las páginas hijas insertarán su contenido -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        Pokemon Arena - Hugo Rey Zas - Yago López Carracedo 2025/2026
+    </footer>
+</body>
+</html>

@@ -1,20 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="Home.css">
-</head>
-<body>
+{% extends "base.html" %}
 
-    <header>
-        <h1>Pokemon Arena</h1>
-        <br>
-        <h3>Bienvenido</h3>
-    </header>
+{% block title %}Inicio{% endblock %}
 
-    <footer> Pokemon Arena  -Hugo Rey Zas -Yago López Carracedo 2025/2026</footer> 
+{% block content %}
+    <h1>Bienvenido a la Pokédex</h1>
+    <p>Aquí puedes ver todos los Pokémon disponibles.</p>
+{% endblock %}
 
-</body>
-</html>
