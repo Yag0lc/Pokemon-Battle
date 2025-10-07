@@ -1,6 +1,6 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #f0f6f6;
+  background-color: lavender  ;
   text-align: center;
 }
 
@@ -42,7 +42,7 @@ hr {
     }
 
     .contenedor:hover {
-      transform: scale(0.4);
+      transform: scale(1.1);
       
     }
 .galeria {
