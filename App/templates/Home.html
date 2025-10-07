@@ -1,8 +1,13 @@
 {% extends "base.html" %}
 
-{% block title %}Inicio{% endblock %}
+{% block title %}Inicio - Pokédex{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='Home.css') }}">
+{% endblock %}
 
 {% block content %}
-    <h1>Bienvenido a la Pokédex</h1>
-    <p>Aquí puedes ver todos los Pokémon disponibles.</p>
+
+    <h1>Bienvenido a Pokemon Arena</h1>
+    <p>Hazte el mejor.</p>
 {% endblock %}

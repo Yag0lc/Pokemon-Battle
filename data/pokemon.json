@@ -36,7 +36,7 @@
       "back_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/6.png"
     },
     "types": [
-      "fire",
+      "https://upload.wikimedia.org/wikipedia/commons/a/a6/Fuego_Pokemon.svg",
       "flying"
     ],
     "weight": 905,

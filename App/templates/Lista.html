@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio - Pokédex{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='Lista.css') }}">
+{% endblock %}
+
+{% block content %}
+
+    <h1>Lista de Pokémon</h1>
+    <section class="galeria">
+
+    {% for p in pokemon %}
+    <div class="contenedor">
+    <h2>{{ p.name }} (ID: {{ p.id }})</h2>
+    <p>Types: {{ p.types | join(', ') }}</p>
+    
+    <h3>Sprites:</h3>
+    
+      <img src="{{ p.sprites.front_default }}" alt="{{ key }}" style="height: 96px; margin: 5px;" />
+    </div>
+    
+    <section class="galeria">
+
+    <hr/>
+  {% endfor %}
+
+
+
+
+{% endblock %}

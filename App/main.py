@@ -1,9 +1,14 @@
+import os
 from flask import Flask, json, render_template
 
 app = Flask(__name__)
 
+# Obtener la ruta base del proyecto
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA_PATH = os.path.join(BASE_DIR, "data", "pokemon.json")
+
 # Carga de datos del fichero JSON
-with open("data/pokemon.json", "r", encoding="utf-8") as f:
+with open(DATA_PATH, "r", encoding="utf-8") as f:
     app.config["DATA"] = json.load(f)
 
 
@@ -11,6 +16,18 @@ with open("data/pokemon.json", "r", encoding="utf-8") as f:
 def home():
     return render_template('Home.html')
 
+@app.route('/lista')
+def lista():
+    pokemon_list = app.config["DATA"]
+    return render_template('Lista.html', pokemon = pokemon_list)
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', 8080, debug=True)
+    app.run('0.0.0.0', 8080, debug=True)    
+
+@app.route('/detalles')
+def detalles():
+    pokemon_list = app.config["DATA"]
+    return render_template('detalles.html', pokemon = pokemon_list)
+
+
+
