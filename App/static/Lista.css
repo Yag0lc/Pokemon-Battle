@@ -1,11 +1,16 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: lavender  ;
+  background:url(imagenes/download.jpg);
   text-align: center;
+
 }
 
 h1 {
   color: #cc0000;
+  margin: 10px;
+  margin-bottom: 50px;
+  text-transform: uppercase;
+  font-size: 60px;
 }
 
 img {
@@ -15,39 +20,60 @@ img {
 hr {
   margin: 20px 0;
 }
+
 .contenedor {
-      flex: 1 1 280px;
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      padding: 16px;
-      transition: transform 0.5s ease, box-shadow 0.2s ease;
-    }
-    .contenedor img {
-      max-width: 100%;
-      border-radius: 8px;
-      margin-bottom: 12px;
-    }
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 20px;
+  width: 350px;  
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
 
-    .contenedor h2 {
-      margin: 0 0 8px;
-      text-align: center;
-    }
+}
 
-    .contenedor p {
-      margin: 0;
-      color: #555;
-      font-size: 0.95em;
-      text-align: center;
-    }
+.contenedor img {
+  max-width: 100%;
+  height: 150px;
+  border-radius: 8px;
+  object-fit: contain;
+  transition: transform 0.2s ease; 
+  transform:scale(3);
+  margin: 15px;
+}
 
-    .contenedor:hover {
-      transform: scale(1.1);
-      
-    }
+.contenedor h2 {
+  margin: 0 0 8px;
+  text-align: center;
+  padding-bottom: 30px;
+  text-transform: uppercase;
+  font-family: Arial, Helvetica, sans-serif;
+  
+}
+
+.contenedor p {
+  margin: 0;
+  color: #555;
+  font-size: 0.95em;
+  text-align: center;
+  margin-top: 100px;
+  
+}
+
+
+.contenedor:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 16px rgba(179, 255, 0, 0.2);
+  border: 2px solid yellow;
+}
+
 .galeria {
-      display: flex;
-      flex-wrap: nowrap;
-      gap: 20px;
-      justify-content: center;
-    }
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+}

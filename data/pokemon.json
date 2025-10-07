@@ -2,7 +2,7 @@
   {
     "height": 17,
     "id": 6,
-    "name": "charizard",
+    "name": "Charizard",
     "stats": [
       {
         "name": "hp",
@@ -35,8 +35,8 @@
       "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/6.png",
       "back_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/6.png"
     },
-    "types": [
-      "https://upload.wikimedia.org/wikipedia/commons/a/a6/Fuego_Pokemon.svg",
+     "types": [
+      "fire",
       "flying"
     ],
     "weight": 905,
@@ -116,7 +116,7 @@
   {
     "height": 20,
     "id": 3,
-    "name": "venusaur",
+    "name": "Venusaur",
     "stats": [
       {
         "name": "hp",
@@ -230,7 +230,7 @@
   {
     "height": 16,
     "id": 9,
-    "name": "blastoise",
+    "name": "Blastoise",
     "stats": [
       {
         "name": "hp",
@@ -343,7 +343,7 @@
   {
     "height": 4,
     "id": 25,
-    "name": "pikachu",
+    "name": "Pikachu",
     "stats": [
       {
         "name": "hp",
@@ -456,7 +456,7 @@
   {
     "height": 19,
     "id": 59,
-    "name": "arcanine",
+    "name": "Arcanine",
     "stats": [
       {
         "name": "hp",
@@ -569,7 +569,7 @@
   {
     "height": 65,
     "id": 130,
-    "name": "gyarados",
+    "name": "Gyarados",
     "stats": [
       {
         "name": "hp",
@@ -683,7 +683,7 @@
   {
     "height": 33,
     "id": 497,
-    "name": "serperior",
+    "name": "Serperior",
     "stats": [
       {
         "name": "hp",
@@ -796,7 +796,7 @@
   {
     "height": 14,
     "id": 181,
-    "name": "ampharos",
+    "name": "Ampharos",
     "stats": [
       {
         "name": "hp",
