@@ -7,7 +7,18 @@
 {% endblock %}
 
 {% block content %}
+   
+    <div class="video-contenedor">
+       <video id="pokemonVideo" width="480" controls poster="{{ url_for('static', filename='imagenes/pokemon_poster.jpg') }}" >
+        <source src="{{ url_for('static', filename='video/pokemon-combate.mp4') }}" type="video/mp4">
+        </video>
+        <div class="contenedor-dentro">
+        <h1>Bienvenido a Pokemon Arena</h1>
+        <p>Hazte el mejor.</p>
+        <button id="jugar">Play</button>
+        </div>
 
-    <h1>Bienvenido a Pokemon Arena</h1>
-    <p>Hazte el mejor.</p>
+       
+    </div>   
+
 {% endblock %}
