@@ -13,17 +13,16 @@
 
       {% for p in pokemon %}
        <div class="contenedor">
-        <h2>{{ p.name }}</h2>
+        <h2 style="margin-top: 6px;">{{ p.name }}</h2>
         <br>
         <br>
-        <img  src="{{ p.sprites.front_default }}" alt="{{ key }}" style="height: 250px; margin: 5px" />
-        <br>
+        <img  src="{{ p.sprites.front_default }}" alt="{{ key }}" style="height: 255px; margin: 5px" />
+        <br style="margin: 3px;">
        <div class="tipos">
       {% for tipo in p.types %}
-<img src="{{ url_for('static', filename='imagenes/' ~ tipo ~ '.png') }}" alt="{{ tipo }}" class="tipo-icono">
+       <img src="{{ url_for('static', filename='imagenes/' ~ tipo ~ '.png') }}" alt="{{ tipo }}" class="tipo-icono">
       {% endfor %}
-</div>
-
+       </div>
        </div>
   {% endfor %}
   </section>

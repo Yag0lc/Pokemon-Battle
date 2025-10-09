@@ -10,7 +10,7 @@ body {
 }
 
 h1 {
-  color: #cc0000;
+  color: rgb(150, 13, 13);
   margin: 10px;
   margin-bottom: 50px;
   text-transform: uppercase;
@@ -23,6 +23,7 @@ img {
 
 hr {
   margin: 20px 0;
+
 }
 
 .contenedor {
@@ -31,7 +32,6 @@ hr {
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   padding: 20px;  
   width: 350px;  
-
   display: flex;
   flex-direction: column;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -40,6 +40,7 @@ hr {
   background-size: 415px;
   background-repeat: no-repeat;
   background-image: url(imagenes/pokedexcontenedor.png);
+  position: relative;
 
 }
 
@@ -56,25 +57,27 @@ hr {
   text-align: right;
   text-transform: uppercase;
   font-family: Arial, Helvetica, sans-serif;
-  margin-top: 22px;
-  margin-right: 10px;
   font-size: 1.7em;
-  
+  margin-right: 20px;
+  transform: translateY(20px); 
+  padding-top: 0px;
+
+
 }
 
 .contenedor .tipos {
   margin: 0;
   color: #555;
   font-size: 0.9em;
-  text-align: left;
+  text-align: center
   
 }
 
 
 .contenedor:hover {
   transform: scale(1.1);
-  box-shadow: 0 8px 16px rgba(179, 255, 0, 0.2);
-  border: 2px solid yellow;
+  box-shadow: 0 8px 16px rgb(150, 13, 13);
+  border: 2px solid rgb(150, 13, 13);
 }
 
 .galeria {
@@ -85,18 +88,21 @@ hr {
 }
 .tipos {
   display: flex;
-  
-  gap: 5px;
-  margin-top: 10px;
+  margin-top: 0px;
+  margin-left: 20px;
 }
 
 .tipos img.tipo-icono {
   width: 70px;
-  height: 70px;
   object-fit: contain;
   transition: transform 0.2s ease;
+  height: 20px;
 }
 
 .tipos img.tipo-icono:hover {
   transform: scale(1.2);
+}
+
+h2{
+  padding-bottom: 14px;
 }
