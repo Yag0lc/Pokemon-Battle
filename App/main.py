@@ -19,15 +19,13 @@ def home():
 @app.route('/lista')
 def lista():
     pokemon_list = app.config["DATA"]
-    return render_template('Lista.html', pokemon = pokemon_list)
+    return render_template('Lista.html', pokemon=pokemon_list)
+
+@app.route('/datos')
+def datos():
+    pokemon_list = app.config["DATA"]
+    return render_template('Datos.html', pokemon=pokemon_list)
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', 8080, debug=True)    
-
-@app.route('/detalles')
-def detalles():
-    pokemon_list = app.config["DATA"]
-    return render_template('detalles.html', pokemon = pokemon_list)
-
-
+    app.run('0.0.0.0', 8080, debug=True)   
 

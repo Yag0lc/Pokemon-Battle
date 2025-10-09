@@ -16,9 +16,14 @@
         <h2>{{ p.name }}</h2>
         <br>
         <br>
-        <img  src="{{ p.sprites.front_default }}" alt="{{ key }}" style="height: 96px; margin: 5px;" />
+        <img  src="{{ p.sprites.front_default }}" alt="{{ key }}" style="height: 250px; margin: 5px" />
         <br>
-        <p>{{ p.types | join(', ') }}</p>
+       <div class="tipos">
+      {% for tipo in p.types %}
+<img src="{{ url_for('static', filename='imagenes/' ~ tipo ~ '.png') }}" alt="{{ tipo }}" class="tipo-icono">
+      {% endfor %}
+</div>
+
        </div>
   {% endfor %}
   </section>
