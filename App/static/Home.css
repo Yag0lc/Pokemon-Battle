@@ -21,3 +21,53 @@ p {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
     margin-top: 20px;
 }
+
+.video-contenedor {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: fit-content; 
+    margin: 40px auto; 
+    padding: 15px;
+    background-color: rgb(240, 248, 255 , 0.7);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    gap: 10px;
+    max-width: 70%;
+
+}
+
+.video-contenedor video {
+    border: 3px solid white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+    max-width: 100%;
+    width: 800px;
+    
+}
+
+#jugar  {
+    margin-top: 15px;
+    padding: 10px 25px;
+    font-size: 1.2rem;
+    color: rgb(0, 0, 0);
+    background-color: #44ff00;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: 60%;
+    
+}
+
+#jugar:hover {
+    color: white;
+    background-color: #d90000;
+
+}
+.contenedor-dentro{
+    display: flex;
+    flex-direction: column ;
+    align-items: center;
+}
