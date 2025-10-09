@@ -74,7 +74,7 @@ hr {
 .contenedor:hover {
   transform: scale(1.1);
   box-shadow: 0 8px 16px rgba(179, 255, 0, 0.2);
-  border: 2px solid yellow;
+  border: 2px solid rgb(255, 0, 0);
 }
 
 .galeria {
