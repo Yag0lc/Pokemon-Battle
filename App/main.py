@@ -21,11 +21,11 @@ def lista():
     pokemon_list = app.config["DATA"]
     return render_template('Lista.html', pokemon=pokemon_list)
 
-@app.route('/datos')
+@app.route('/lista/charizard')
 def datos():
     pokemon_list = app.config["DATA"]
-    return render_template('Datos.html', pokemon=pokemon_list)
+    charizard = next((p for p in pokemon_list if p.get("id") == 6), None)
+    return render_template('Datos.html', pokemon=charizard) 
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', 8080, debug=True)   
-
+    app.run('0.0.0.0', 8080, debug=True)
