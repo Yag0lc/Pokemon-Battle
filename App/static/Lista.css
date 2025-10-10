@@ -1,12 +1,11 @@
 body {
   font-family: Arial, sans-serif;
-  background:url(video/Pokemon\ Background\ Loop.gif);
+  background: url(video/Pokemon\ Background\ Loop.gif);
   background-size: cover;
   background-position: center;
   text-align: center;
   overflow-x: hidden;
   background-repeat: no-repeat;
-  
 }
 
 h1 {
@@ -23,7 +22,6 @@ img {
 
 hr {
   margin: 20px 0;
-
 }
 
 .contenedor {
@@ -41,17 +39,49 @@ hr {
   background-repeat: no-repeat;
   background-image: url(imagenes/pokedexcontenedor.png);
   position: relative;
-
 }
+
+
+.contenedor .image-container {
+  position: relative;
+  height: 255px;
+  width: 255px;
+  margin: 5px auto; 
+}
+
+.contenedor .image-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 255px;
+  width: 255px;
+  border-radius: 10px;
+  object-fit: contain;
+  transition: opacity 0.3s ease;
+  display: block;
+  z-index: 1;
+}
+
+.contenedor .image-container .shiny-img {
+  opacity: 0;
+  z-index: 2;
+}
+
+.contenedor .image-container:hover .shiny-img {
+  opacity: 1;
+}
+
+.contenedor .image-container:hover .normal-img {
+  opacity: 0;
+}
+
+
 
 .contenedor img {
   max-width: 100%;
   border-radius: 8px;
   object-fit: contain;
-
-
 }
-
 
 .contenedor h2 {
   text-align: right;
@@ -61,18 +91,14 @@ hr {
   margin-right: 20px;
   transform: translateY(20px); 
   padding-top: 0px;
-
-
 }
 
 .contenedor .tipos {
   margin: 0;
   color: #555;
   font-size: 0.9em;
-  text-align: center
-  
+  text-align: center;
 }
-
 
 .contenedor:hover {
   transform: scale(1.1);
@@ -86,6 +112,7 @@ hr {
   gap: 40px;
   justify-content: center;
 }
+
 .tipos {
   display: flex;
   margin-top: 0px;
@@ -103,6 +130,6 @@ hr {
   transform: scale(1.2);
 }
 
-h2{
+h2 {
   padding-bottom: 14px;
 }

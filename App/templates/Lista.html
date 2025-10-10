@@ -16,7 +16,10 @@
         <h2 style="margin-top: 6px;">{{ p.name }}</h2>
         <br>
         <br>
-        <img  src="{{ p.sprites.front_default }}" alt="{{ key }}" style="height: 255px; margin: 5px" />
+        <div class="image-container">
+           <img src="{{ p.sprites.front_default }}" alt="{{ key }}" class="normal-img" />
+           <img src="{{ p.sprites.front_shiny }}" alt="{{ key }} shiny" class="shiny-img" />
+         </div>
         <br style="margin: 3px;">
        <div class="tipos">
       {% for tipo in p.types %}
