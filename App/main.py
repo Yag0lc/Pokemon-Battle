@@ -24,7 +24,7 @@ def lista():
 @app.route('/lista/charizard')
 def datos():
     pokemon_list = app.config["DATA"]
-    charizard = next((p for p in pokemon_list if p.get("id") == 6), None)
+    charizard = next((poke for poke in pokemon_list if poke.get("id") == 6), None)
     return render_template('Datos.html', pokemon=charizard) 
 
 if __name__ == '__main__':

@@ -76,13 +76,8 @@ hr {
 
 .contenedor:hover {
   transform: scale(1.1);
-<<<<<<< HEAD
   box-shadow: 0 8px 16px rgba(179, 255, 0, 0.2);
   border: 2px solid rgb(255, 0, 0);
-=======
-  box-shadow: 0 8px 16px rgb(150, 13, 13);
-  border: 2px solid rgb(150, 13, 13);
->>>>>>> 58398b79cbf580eac15ea2729591d470aaa0deb8
 }
 
 .galeria {
