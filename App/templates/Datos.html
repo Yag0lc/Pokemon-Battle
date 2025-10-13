@@ -44,8 +44,8 @@
 <div class="descripcion">
 
         <h1><strong>{{ pokemon.name | title }}</strong> </h1>
-        <h2>Description</h2>
-        <p >If Charizard becomes truly angered, the flame at the tip of its tail burns in a light blue shade.</p>
+        <!-- <h2>Description</h2> -->
+        <!-- <p >If Charizard becomes truly angered, the flame at the tip of its tail burns in a light blue shade.</p> -->
         <br>
         <h2>Información Física</h2>
         <ul class="fisico-lista">
@@ -69,8 +69,8 @@
         <div class="stats-pokemon">
             {% for stat in pokemon.stats %}
             <div class="stat-barras">
-                <label>{{ stat.name.replace('-', ' ').replace('special', 'Especial').title() }}</label>
-                <progress value="{{ stat.value }}" ></progress>
+                <label>{{ stat.name.replace('-', ' ').replace('special', 'Special').title() }}</label>
+                <progress value="{{ stat.value }}" max="200" ></progress>
                 <span class="stat-value">{{ stat.value }}</span>
             </div>
             {% endfor %}

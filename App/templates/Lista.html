@@ -8,7 +8,9 @@
 
 {% block content %}
 
-    <h1>Pokédex</h1>
+    <h1>Pokédex  de {{ trainer }}</h1>
+
+
     <section class="galeria">
 
       {% for p in pokemon %}
@@ -16,9 +18,12 @@
         <h2 style="margin-top: 6px;">{{ p.name }}</h2>
         <br>
         <br>
-        <div class="image-container">
+        <a href="{{ url_for('datos', pokemon_id=p.id) }}">
+           <div class="image-container">
            <img src="{{ p.sprites.front_default }}" alt="{{ key }}" class="normal-img" />
            <img src="{{ p.sprites.front_shiny }}" alt="{{ key }} shiny" class="shiny-img" />
+        </a>
+           
          </div>
         <br style="margin: 3px;">
        <div class="tipos">

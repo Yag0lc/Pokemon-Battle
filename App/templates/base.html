@@ -11,13 +11,14 @@
     <header>
         <nav class="nav">
             <a class="nav-link active" aria-current="page" href="{{ url_for('home') }}"><strong>Home</strong></a>
+            <a class="nav-link active" aria-current="page" href="{{ url_for('lista') }}"><strong>Play</strong></a>
             <a class="nav-link active" aria-current="page" href="{{ url_for('lista') }}"><strong>Pokédex</strong></a>
-            <a class="nav-link active" aria-current="page" href="{{ url_for('datos') }}" ><strong>Datos</strong></a>
+            
         </nav>
     </header>
 
     <main>
-        {% block content %}
+        {% block content %} 
         {% endblock %}
     </main>
 

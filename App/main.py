@@ -1,5 +1,5 @@
 import os
-from flask import Flask, json, render_template
+from flask import Flask, json, render_template, request
 
 app = Flask(__name__)
 
@@ -16,16 +16,25 @@ with open(DATA_PATH, "r", encoding="utf-8") as f:
 def home():
     return render_template('Home.html')
 
-@app.route('/lista')
+@app.route('/lista', methods=["GET"])
 def lista():
+    trainer = request.args.get("trainer")  
     pokemon_list = app.config["DATA"]
-    return render_template('Lista.html', pokemon=pokemon_list)
+    return render_template('Lista.html', pokemon=pokemon_list, trainer=trainer)
 
-@app.route('/lista/charizard')
-def datos():
+
+
+@app.route('/lista/<int:pokemon_id>')
+def datos(pokemon_id):
     pokemon_list = app.config["DATA"]
-    charizard = next((poke for poke in pokemon_list if poke.get("id") == 6), None)
-    return render_template('Datos.html', pokemon=charizard) 
+    pokemon = next((poke for poke in pokemon_list if poke.get("id") == pokemon_id), None)
+    return render_template('Datos.html', pokemon=pokemon) 
 
 if __name__ == '__main__':
     app.run('0.0.0.0', 8080, debug=True)
+
+app
+
+
+# request form
+#return redirect(url_for(..., ....))  
