@@ -44,28 +44,13 @@
 <div class="descripcion">
 
         <h1><strong>{{ pokemon.name | title }}</strong> </h1>
-        <!-- <h2>Description</h2> -->
-        <!-- <p >If Charizard becomes truly angered, the flame at the tip of its tail burns in a light blue shade.</p> -->
         <br>
         <h2>Información Física</h2>
         <ul class="fisico-lista">
             <li><strong>Altura:</strong> {{ (pokemon.height / 10) }} m</li>
             <li><strong>Peso:</strong> {{ (pokemon.weight / 10) }} kg</li>
         </ul>
-        
-
-</div>
-   
-        <div>
-            {% for type in pokemon.types %}
-                <img src="{{ url_for('static', filename='imagenes/' ~ tipo ~ '.png') }}" alt="{{ tipo }}" class="tipo">
-            {% endfor %}
-        </div>
-    </main>
-
-
-    <section class="stats-contenedor">  
-        <h2>Estadísticas Base</h2>
+              <h2>Estadísticas Base</h2>
         <div class="stats-pokemon">
             {% for stat in pokemon.stats %}
             <div class="stat-barras">
@@ -78,17 +63,29 @@
         <div class="stats-total">
             <p>Total de Stats Base: {{ pokemon.stats | sum(attribute='value') }}</p>
         </div>
-    </section>
+        
+
+</div>
+   
+        <div>
+            {% for type in pokemon.types %}
+                <img src="{{ url_for('static', filename='imagenes/' ~ tipo ~ '.png') }}" alt="{{ tipo }}" class="tipo">
+            {% endfor %}
+        </div>
+    </main>
+
     </section>
          <section class="moves-contenedor">  
         <h2>Movimientos pokemon</h2>
         <div class="move-pokemon">
-            {% for move in pokemon.moves %}
+           {% for move in pokemon.moves %}
             <div class="stat-barras">
-                <label>{{ move.name.replace('-', ' ').replace('special', 'Especial').title() }}</label>
-                <label>{{ move.power}}</label>
-            </div>
-            {% endfor %}
+          <label>{{ move.name.replace('-', ' ').replace('special', 'Especial').title() }}</label>
+          <img src="{{ url_for('static', filename='imagenes/' ~ move.type ~ '.png') }}" alt="{{ move.type }}" class="tipo-icono">
+            <label>{{ move.power }}</label>
+           </div>
+         {% endfor %}
+
         </div>
      </section>
 

@@ -8,7 +8,10 @@
 
 {% block content %}
 
-    <h1>Pokédex  de {{ trainer }}</h1>
+    <h1>
+  Pokédex{% if trainer %} de {{ trainer }}{% endif %}
+   </h1>
+
 
 
     <section class="galeria">
