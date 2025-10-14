@@ -55,7 +55,7 @@
             {% for stat in pokemon.stats %}
             <div class="stat-barras">
                 <label>{{ stat.name.replace('-', ' ').replace('special', 'Special').title() }}</label>
-                <progress value="{{ stat.value }}" max="200" ></progress>
+                <progress value="{{ stat.value }}" max="150" ></progress>
                 <span class="stat-value">{{ stat.value }}</span>
             </div>
             {% endfor %}

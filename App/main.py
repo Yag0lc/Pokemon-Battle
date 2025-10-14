@@ -14,23 +14,19 @@ with open(DATA_PATH, "r", encoding="utf-8") as f:
 
 @app.route('/')
 def home():
-
-
-
     return render_template('Home.html')
 
 @app.route('/lista', methods=["GET"])
 def lista():
-    errorNombre = None
-    trainer = request.args.get("trainer", "").strip()  # quitar espacios al inicio/final
+    trainer = request.args.get("trainer", "").strip()
+    pokemon_list = app.config["DATA"]
 
-    if not (3 <= len(trainer) <= 15):
+    # Si no hay entrenador, no mostramos error
+    if trainer and not (3 <= len(trainer) <= 15):
         errorNombre = "El nombre del entrenador debe tener entre 3 y 15 caracteres."
         return render_template("Home.html", errorNombre=errorNombre)
 
-    pokemon_list = app.config["DATA"]
     return render_template('Lista.html', pokemon=pokemon_list, trainer=trainer)
-
 
 
 @app.route('/lista/<int:pokemon_id>')
@@ -39,10 +35,28 @@ def datos(pokemon_id):
     pokemon = next((poke for poke in pokemon_list if poke.get("id") == pokemon_id), None)
     return render_template('Datos.html', pokemon=pokemon) 
 
+
+@app.route('/batalla', methods=['GET'])
+def batalla():
+    nombre = request.args.get("pokemon-combate", "").strip()
+    trainer = request.args.get("trainer", "").strip()
+    pokemon_list = app.config["DATA"]
+
+
+    pokemon = next((poke for poke in pokemon_list if poke.get("name").lower() == nombre.lower()), None)
+
+    if pokemon:
+        # Si existe
+        return render_template("batalla.html", pokemon=pokemon, trainer=trainer)
+    else:
+        # Si no existe
+        errorCombate = f"No se encontró un Pokémon con el nombre '{nombre}'."
+        return render_template("Lista.html", pokemon=pokemon_list, trainer=trainer, errorCombate=errorCombate)
+
+
 if __name__ == '__main__':
     app.run('0.0.0.0', 8080, debug=True)
 
-app
 
 
 # request form

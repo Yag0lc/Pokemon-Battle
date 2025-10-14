@@ -9,7 +9,7 @@
 {% block content %}
 
     <h1>
-  Pokédex{% if trainer %} de {{ trainer }}{% endif %}
+      Pokédex{% if trainer %} de {{ trainer }}{% endif %}
    </h1>
 
 
@@ -35,9 +35,24 @@
       {% endfor %}
        </div>
        </div>
-  {% endfor %}
+    {% endfor %}
   </section>
+{% if trainer %}
+<section class="contenedor-combate">
+  <form method="get" action="{{ url_for('batalla') }}">
+    <!-- Mantener el trainer -->
+    <input type="hidden" name="trainer" value="{{ trainer }}">
+    
+    <label for="pokemon-combate">Escriba el nombre del Pokémon con el cual quiere combatir</label>
+    <input type="text" id="pokemon-combate" name="pokemon-combate" required autofocus>
+    <button type="submit" id="boton-start">Start</button>
 
+    {% if errorCombate %}
+      <p style="color: red; font-weight: bold; margin-top: 10px;">{{ errorCombate }}</p>
+    {% endif %}
+  </form>
+</section>
+{% endif %}
 
 
 

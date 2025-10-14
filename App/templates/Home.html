@@ -17,10 +17,10 @@
             <p>Hazte el mejor.</p>
             <form method="get" action="{{ url_for('lista') }}">
                 <label for="trainer">Introduzca su nombre de entrenador</label>
-                    {% if error %}
-                        <p class="error">{{ errorNombre }}</p>
+                    {% if errorNombre %}
+                        <p style="color: rgb(131, 0, 0);">{{ errorNombre }}</p>
                     {% endif %}
-                <input type="text" name="trainer" id="trainer" required  minlength="3" maxlength="15" >
+                <input type="text" name="trainer" id="trainer" >
                 <button type="submit" id="jugar">Play</button>
             </form>
 
