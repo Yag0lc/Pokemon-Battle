@@ -1,5 +1,5 @@
 import os
-from flask import Flask, json, render_template, request
+from flask import Flask, flash, json, redirect, render_template, request, url_for
 
 app = Flask(__name__)
 
@@ -14,11 +14,20 @@ with open(DATA_PATH, "r", encoding="utf-8") as f:
 
 @app.route('/')
 def home():
+
+
+
     return render_template('Home.html')
 
 @app.route('/lista', methods=["GET"])
 def lista():
-    trainer = request.args.get("trainer")  
+    errorNombre = None
+    trainer = request.args.get("trainer", "").strip()  # quitar espacios al inicio/final
+
+    if not (3 <= len(trainer) <= 15):
+        errorNombre = "El nombre del entrenador debe tener entre 3 y 15 caracteres."
+        return render_template("Home.html", errorNombre=errorNombre)
+
     pokemon_list = app.config["DATA"]
     return render_template('Lista.html', pokemon=pokemon_list, trainer=trainer)
 
