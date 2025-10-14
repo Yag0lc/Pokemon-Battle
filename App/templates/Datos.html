@@ -75,16 +75,17 @@
     </main>
 
     </section>
-         <section class="moves-contenedor">  
+         <section class="contenedor">  
         <h2>Movimientos pokemon</h2>
-        <div class="move-pokemon">
-           {% for move in pokemon.moves %}
-            <div class="stat-barras">
-          <label>{{ move.name.replace('-', ' ').replace('special', 'Especial').title() }}</label>
-          <img src="{{ url_for('static', filename='imagenes/' ~ move.type ~ '.png') }}" alt="{{ move.type }}" class="tipo-icono">
-            <label>{{ move.power }}</label>
-           </div>
-         {% endfor %}
+       <div class="move-container">
+  {% for move in pokemon.moves %}
+    <div class="move-card">
+      <h3 class="move-name">{{ move.name.replace('-', ' ').replace('special', 'Especial').title() }}</h3>
+      <img src="{{ url_for('static', filename='imagenes/' ~ move.type ~ '.png') }}" alt="{{ move.type }}" class="tipo-icono">
+      <p><strong>Poder:</strong> {{ move.power or '—' }}</p>
+    </div>
+  {% endfor %}
+</div>
 
         </div>
      </section>

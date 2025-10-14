@@ -66,9 +66,28 @@ p {
 
 
 #jugar:hover {
-    color: white;
-    background-color: #d90000;
+  color: white;
+  background-color: #d90000;
+  transform: perspective(1px) translateZ(0);
+  transition: transform 0.3s ease;
+  animation: pulse 1.5s infinite ease-in-out;
+}
 
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+#jugar {
+  
+  animation: pulse 1.5s infinite ease-in-out;
 }
 .contenedor-dentro{
     display: flex;
