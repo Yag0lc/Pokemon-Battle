@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Inicio{% endblock %}
+{% block title %}Batalla Pokémon{% endblock %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='batalla.css') }}">
@@ -11,21 +11,21 @@
   <div class="battle-container">
 
     <!-- enemigo -->
-    <div class="enemy-area">
-      <div class="enemy-info">
-        <h2>Pikachu</h2>
+    <div class="enemigo-area">
+      <div class="enemigo-info">
+        <h2>{{ pokemon.name | title }}</h2>
         <div class="hp-barra">
           <div class="hp-contenido"></div>
         </div>
       </div>
-      <img src="" alt="" class="pokemon-sprite enemy-sprite">
+      <img src="{{ pokemon.sprites.front_default }}" alt="{{ pokemon.name }}" class="pokemon-sprite enemigo-sprite">
     </div>
 
     <!-- jugador -->
     <div class="player-area">
-      <img src="" alt="" class="pokemon-sprite player-sprite">
+      <img src="{{ pokemon.sprites.back_default }}" alt="{{ pokemon.name }}" class="pokemon-sprite player-sprite">
       <div class="player-info">
-        <h2>Arcanine</h2>
+        <h2>{{ trainer }}</h2>
         <div class="hp-barra">
           <div class="hp-contenido"></div>
         </div>
@@ -38,16 +38,12 @@
         ¿Qué debería hacer?
       </div>
       <div class="movimientos">
-        <button>Arañazo</button>
-        <button>Mordisco</button>
-        <button>Malicioso</button>
-        <button>Gruñido</button>
+        {% for move in pokemon.moves[:4] %}
+          <button>{{ move.name.replace('-', ' ').replace('special', 'Especial').title() }}</button>
+        {% endfor %}
       </div>
     </div>
 
   </div>
-
-</body>
-</html>
 
 {% endblock %}
