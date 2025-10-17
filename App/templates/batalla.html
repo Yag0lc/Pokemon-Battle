@@ -7,6 +7,47 @@
 {% endblock %}
 
 {% block content %}
-   
+
+  <div class="battle-container">
+
+    <!-- enemigo -->
+    <div class="enemy-area">
+      <div class="enemy-info">
+        <h2>Pikachu</h2>
+        <div class="hp-barra">
+          <div class="hp-contenido"></div>
+        </div>
+      </div>
+      <img src="" alt="" class="pokemon-sprite enemy-sprite">
+    </div>
+
+    <!-- jugador -->
+    <div class="player-area">
+      <img src="" alt="" class="pokemon-sprite player-sprite">
+      <div class="player-info">
+        <h2>Arcanine</h2>
+        <div class="hp-barra">
+          <div class="hp-contenido"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- panel inferior -->
+    <div class="battle-panel">
+      <div class="battle-texto">
+        ¿Qué debería hacer?
+      </div>
+      <div class="movimientos">
+        <button>Arañazo</button>
+        <button>Mordisco</button>
+        <button>Malicioso</button>
+        <button>Gruñido</button>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
 
 {% endblock %}

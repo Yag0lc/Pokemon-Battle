@@ -45,7 +45,7 @@ def batalla():
 
     pokemon = next((poke for poke in pokemon_list if poke.get("name").lower() == nombre.lower()), None)
 
-    if pokemon:
+    if pokemon: 
         # Si existe
         return render_template("batalla.html", pokemon=pokemon, trainer=trainer)
     else:

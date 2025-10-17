@@ -1,6 +1,116 @@
-body{
-    background-image: url(imagenes/Z6fO.gif);
-    background-repeat: no-repeat;
-    background-size: cover ;
+body {
+    background: rgb(255, 255, 255);
 
+    font-family: 'Arial', sans-serif;
+}
+
+/* Contenedor principal  */
+.battle-container {
+    display: flex;
+    position: relative;
+    width: 90vw;          
+    height: 75vh;         
+    max-width: 1300px;
+    max-height: 800px;
+    margin: 40px auto;
+    border: 3px solid #222;
+    border-radius: 10px;
+    overflow: hidden;
+    background: rgba(255, 255, 255);
+}
+
+/* Áreas de combate  */
+.enemy-area {
+  position: absolute;
+  top: 40px;
+  right: 60px;
+
+}
+
+.player-area {
+  position: absolute;
+  bottom: 180px;
+  left: 60px;
+
+}
+
+/*  Informacion   */
+.enemy-info, .player-info {
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 12px ;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.hp-barra {
+  width: 150px;
+  height: 10px;
+  background: #444;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+.hp-contenido {
+  height: 100%;
+  background-color: green;
+  border-radius: 5px;
+  width: 100%;
+}
+
+/* sprites */
+.pokemon-sprite {
+  width: 120px;
+  height: 120px;
+}
+
+.enemy-sprite {
+  position: relative;
+  top: 10px;
+}
+
+.player-sprite {
+  position: relative;
+  bottom: 10px;
+}
+
+/* Panel de batalla */
+.battle-panel {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 160px;
+  background: rgba(0, 0, 0, 0.85);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 15px 25px;
+  box-sizing: border-box;
+}
+
+.battle-texto {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.movimientos {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.movimientos button {
+  padding: 12px;
+  background: #2c5282;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.movimientos button:hover {
+  background: #1e3a5f;
 }
