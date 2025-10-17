@@ -9,7 +9,8 @@
 {% block content %}
 
   <div class="battle-container">
-
+    
+    <div class="pokemons-container">
     <!-- enemigo -->
     <div class="enemigo-area">
       <div class="enemigo-info">
@@ -25,13 +26,13 @@
     <div class="player-area">
       <img src="{{ pokemon.sprites.back_default }}" alt="{{ pokemon.name }}" class="pokemon-sprite player-sprite">
       <div class="player-info">
-        <h2>{{ trainer }}</h2>
+        <h2>{{ pokemon.name | title }}</h2>
         <div class="hp-barra">
           <div class="hp-contenido"></div>
         </div>
       </div>
     </div>
-
+    </div>
     <!-- panel inferior -->
     <div class="battle-panel">
       <div class="battle-texto">
