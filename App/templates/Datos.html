@@ -79,10 +79,15 @@
         <h2>Movimientos pokemon</h2>
        <div class="move-container">
   {% for move in pokemon.moves %}
-    <div class="move-card">
+    <div class="move-card {{move.type}}">
+      <div class="attack">
       <h3 class="move-name">{{ move.name.replace('-', ' ').replace('special', 'Especial').title() }}</h3>
       <img src="{{ url_for('static', filename='imagenes/' ~ move.type ~ '.png') }}" alt="{{ move.type }}" class="tipo-icono">
+      </div>
+      <div class="stat">
       <p><strong>Poder:</strong> {{ move.power or '—' }}</p>
+      <p><strong>Accuracy:</strong> {{ move.accuracy or '—' }}%</p>
+      </div>
     </div>
   {% endfor %}
 </div>

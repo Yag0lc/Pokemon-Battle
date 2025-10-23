@@ -1,4 +1,5 @@
 import os
+import random
 from flask import Flask, flash, json, redirect, render_template, request, url_for
 
 app = Flask(__name__)
@@ -41,13 +42,100 @@ def batalla():
     nombre = request.args.get("pokemon-combate", "").strip()
     trainer = request.args.get("trainer", "").strip()
     pokemon_list = app.config["DATA"]
-
+    
 
     pokemon = next((poke for poke in pokemon_list if poke.get("name").lower() == nombre.lower()), None)
 
+    character_player_img = []
+    enemy_player_img = []
+
+
     if pokemon: 
-        # Si existe
-        return render_template("batalla.html", pokemon=pokemon, trainer=trainer)
+        enemigo = random.choice(pokemon_list)
+
+        pokemon_moves = pokemon.copy()
+        pokemon_moves["moves"] = random.sample(pokemon["moves"], 4)
+        
+        enemigo_con_moves = enemigo.copy()
+        enemigo_con_moves["moves"] = random.sample(enemigo["moves"], 4)
+
+        character_player_img = [
+           "imagenes/Torrente.png",
+           "imagenes/Gitano.png",
+           "imagenes/Espetero.png",
+           "imagenes/Cid.png",
+           "imagenes/alain.png",
+           "imagenes/alder.png",
+           "imagenes/arceus.png",
+           "imagenes/ash-alola.png",
+           "imagenes/ash-capbackward.png",
+           "imagenes/ash-hoenn.png",
+           "imagenes/ash-johto.png",
+           "imagenes/ash-kalos.png",
+           "imagenes/ash-sinnoh.png",
+           "imagenes/ash-unova.png",
+           "imagenes/ash.png",
+           "imagenes/ballguy.png",
+           "imagenes/blue.png",
+           "imagenes/brock-lgpe.png",
+           "imagenes/clemont.png",
+           "imagenes/cynthia-gen4.png",
+           "imagenes/diantha.png",
+           "imagenes/gladion.png",
+           "imagenes/iniesta.png",
+           "imagenes/iris.png",
+           "imagenes/may-rs.png",
+           "imagenes/Messi.png",
+           "imagenes/n.png",
+           "imagenes/oak-gen3.png",
+           "imagenes/red.png",
+           "imagenes/serena.png",
+           "imagenes/steven.png",
+           "imagenes/Xavi.png",
+           "App/static/imagenes/dawn.png"
+        ]
+
+        enemy_player_img = [
+            "imagenes/Sergio_Ramos..png",
+            "imagenes/Espetero.png",
+            "imagenes/Gitano.png",
+            "imagenes/Torrente.png",
+            "imagenes/Cid.png",
+            "imagenes/Aizkolari.png",
+            "imagenes/Aliados.png",
+            "imagenes/Cayetano.png",
+            "imagenes/Cervantes.png",
+            "imagenes/Felipe_VI.png",
+            "imagenes/ghetsis.png",
+            "imagenes/giovanni-lgpe.png",
+            "imagenes/Guiri_Playa.png",
+            "imagenes/Guiri.png",
+            "imagenes/Ignatius.png",
+            "imagenes/lysandre.png",
+            "imagenes/Nazareno.png",
+            "imagenes/Reverte.png",
+            "imagenes/Reyes_Cat%3Flicos.png",
+            "imagenes/teamrocket.png",
+            "imagenes/Torero.png",
+            "imagenes/sordward-shielbert.png",
+            "imagenes/lusamine-nihilego.png",
+            "imagenes/maxie-gen6.png",
+            "imagenes/leon.png",
+            "imagenes/lance.png",
+            "imagenes/kiawe.png",
+            "imagenes/courtney.png",
+            "imagenes/archie-gen6.png",
+            "imagenes/cliff.png",
+            "imagenes/xerosic.png",
+            "imagenes/flaregrunt.png",
+            "imagenes/kukui-sta.png"
+        ]
+        character_player = random.choice(character_player_img)
+        enemy_player = random.choice(enemy_player_img)
+
+
+        return render_template("batalla.html", pokemon=pokemon_moves, trainer=trainer, enemigo=enemigo_con_moves, character_player=character_player, enemy_player=enemy_player)
+    
     else:
         # Si no existe
         errorCombate = f"No se encontró un Pokémon con el nombre '{nombre}'."
@@ -56,6 +144,8 @@ def batalla():
 
 if __name__ == '__main__':
     app.run('0.0.0.0', 8080, debug=True)
+
+    
 
 
 
