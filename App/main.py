@@ -92,11 +92,11 @@ def batalla():
            "imagenes/serena.png",
            "imagenes/steven.png",
            "imagenes/Xavi.png",
-           "App/static/imagenes/dawn.png"
+           "imagenes/dawn.png"
         ]
 
         enemy_player_img = [
-            "imagenes/Sergio_Ramos..png",
+            "imagenes/Sergio_Ramos.png",
             "imagenes/Espetero.png",
             "imagenes/Gitano.png",
             "imagenes/Torrente.png",
