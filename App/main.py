@@ -96,7 +96,7 @@ def batalla():
         ]
 
         enemy_player_img = [
-            "imagenes/Sergio_Ramos.png",
+            "imagenes/image.png",
             "imagenes/Espetero.png",
             "imagenes/Gitano.png",
             "imagenes/Torrente.png",
@@ -128,13 +128,52 @@ def batalla():
             "imagenes/cliff.png",
             "imagenes/xerosic.png",
             "imagenes/flaregrunt.png",
-            "imagenes/kukui-sta.png"
+            "imagenes/kukui.png"
         ]
+
+        enemy_names = {
+            "imagenes/image.png": "Sergio Ramos",
+            "imagenes/Espetero.png": "Espetero",
+            "imagenes/Gitano.png": "Gitano",
+            "imagenes/Torrente.png": "Torrente",
+            "imagenes/Cid.png": "Cid",
+            "imagenes/Aizkolari.png": "Aizkolari",
+            "imagenes/Aliados.png": "Aliados",
+            "imagenes/Cayetano.png": "Cayetano",
+            "imagenes/Cervantes.png": "Cervantes",
+            "imagenes/Felipe_VI.png": "Felipe VI",
+            "imagenes/ghetsis.png": "Ghetsis",
+            "imagenes/giovanni-lgpe.png": "Giovanni",
+            "imagenes/Guiri_Playa.png": "Guiri de Playa",
+            "imagenes/Guiri.png": "Guiri",
+            "imagenes/Ignatius.png": "Ignatius",
+            "imagenes/lysandre.png": "Lysandre",
+            "imagenes/Nazareno.png": "Nazareno",
+            "imagenes/Reverte.png": "Reverte",
+            "imagenes/Reyes_Cat%3Flicos.png": "Reyes Católicos",
+            "imagenes/teamrocket.png": "Team Rocket",
+            "imagenes/Torero.png": "Torero",
+            "imagenes/sordward-shielbert.png": "Sordward & Shielbert",
+            "imagenes/lusamine-nihilego.png": "Lusamine & Nihilego",
+            "imagenes/maxie-gen6.png": "Maxie",
+            "imagenes/leon.png": "Leon",
+            "imagenes/lance.png": "Lance",
+            "imagenes/kiawe.png": "Kiawe",
+            "imagenes/courtney.png": "Courtney",
+            "imagenes/archie-gen6.png": "Archie",
+            "imagenes/cliff.png": "Cliff",
+            "imagenes/xerosic.png": "Xerosic",
+            "imagenes/flaregrunt.png": "Flare Grunt",
+            "imagenes/kukui.png": "Profesor Kukui"
+        }
+
         character_player = random.choice(character_player_img)
         enemy_player = random.choice(enemy_player_img)
+        enemy_name = enemy_names.get(enemy_player, "Desconocido")
 
 
-        return render_template("batalla.html", pokemon=pokemon_moves, trainer=trainer, enemigo=enemigo_con_moves, character_player=character_player, enemy_player=enemy_player)
+
+        return render_template("batalla.html", pokemon=pokemon_moves, trainer=trainer, enemigo=enemigo_con_moves, character_player=character_player, enemy_player=enemy_player,enemy_name=enemy_name)
     
     else:
         # Si no existe
