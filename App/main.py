@@ -1,7 +1,7 @@
 import os
 import random
-from flask import Flask, json, render_template, request
-from App.routes.pokemon_routes import pokemons_bp  # ✅ Import del blueprint de pokemons
+from flask import Flask, json, render_template, request, current_app
+from App.routes.pokemon_routes import pokemons_bp
 
 app = Flask(__name__)
 
@@ -19,7 +19,7 @@ app.register_blueprint(pokemons_bp, url_prefix="/pokemons")
 # === RUTA PRINCIPAL ===
 @app.route('/')
 def home():
-    return '<h1>Bienvenido al Mundo Pokémon</h1><p>Visita /pokemons/lista para ver el listado.</p>'
+    return render_template('Home.html')
 
 
 # === RUTA DE BATALLA ===
@@ -27,7 +27,7 @@ def home():
 def batalla():
     nombre = request.args.get("pokemon-combate", "").strip()
     trainer = request.args.get("trainer", "").strip()
-    pokemon_list = app.config["DATA"]
+    pokemon_list = current_app.config["DATA"]
 
     pokemon = next((poke for poke in pokemon_list if poke.get("name").lower() == nombre.lower()), None)
 
@@ -35,10 +35,10 @@ def batalla():
         enemigo = random.choice(pokemon_list)
 
         pokemon_moves = pokemon.copy()
-        pokemon_moves["moves"] = random.sample(pokemon["moves"], 4)
+        pokemon_moves["moves"] = random.sample(pokemon["moves"], min(4, len(pokemon["moves"])))
 
         enemigo_con_moves = enemigo.copy()
-        enemigo_con_moves["moves"] = random.sample(enemigo["moves"], 4)
+        enemigo_con_moves["moves"] = random.sample(enemigo["moves"], min(4, len(enemigo["moves"])))
 
         # Imágenes del jugador y del enemigo
         character_player_img = [
