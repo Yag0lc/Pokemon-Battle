@@ -1,9 +1,11 @@
 import os
 import random
-from flask import Flask, json, render_template, request, current_app
+from flask import Flask, current_app, json, render_template, request, redirect, url_for, session
 from App.routes.pokemon_routes import pokemons_bp
 
 app = Flask(__name__)
+
+app.secret_key= "Pokemon-Battle"
 
 # === CARGA DE DATOS ===
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -17,8 +19,13 @@ app.register_blueprint(pokemons_bp, url_prefix="/pokemons")
 
 
 # === RUTA PRINCIPAL ===
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def home():
+    if request.method == 'POST':
+        entrenador= request.form['trainer']
+        if entrenador:
+            session['trainer']=entrenador
+            return redirect(url_for('lista'))
     return render_template('Home.html')
 
 
