@@ -3,26 +3,28 @@
 {% block title %}Inicio{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='Home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='Home.css') }}">
 {% endblock %}
 
 {% block content %}
-<div class="video-contenedor">
-   <video id="pokemonVideo" width="480" controls poster="{{ url_for('static', filename='imagenes/logotipo.png') }}" height="400px">
-      <source src="{{ url_for('static', filename='video/pokemon-combate.mp4') }}" type="video/mp4">
-   </video>
-   <div class="contenedor-dentro">
-      <h1>Bienvenido a Pokemon Arena</h1>
-      <p>Hazte el mejor.</p>
+   
+    <div class="video-contenedor">
+       <video id="pokemonVideo" width="480" controls poster="{{ url_for('static', filename='imagenes/logotipo.png') }}" height="400px" >
+        <source src="{{ url_for('static', filename='video/pokemon-combate.mp4') }}" type="video/mp4">
+        </video>
+        <div class="contenedor-dentro">
+            <h1>Bienvenido a Pokemon Arena</h1>
+            <p>Hazte el mejor.</p>
+            <!-- Usar método POST para guardar en sesión -->
             <form method="post" action="{{ url_for('home') }}">
                 <label for="trainer">Introduzca su nombre de entrenador</label>
-                {% if errorNombre %}
-                    <p style="color: rgb(131, 0, 0);">{{ errorNombre }}</p>
-                {% endif %}
-                <input type="text" name="trainer" id="trainer" required>
+                    {% if errorNombre %}
+                        <p style="color: rgb(131, 0, 0);">{{ errorNombre }}</p>
+                    {% endif %}
+                <input type="text" name="trainer" id="trainer" required minlength="3" maxlength="15">
                 <button type="submit" id="jugar">Play</button>
-        </form>
+            </form>
+        </div>
+    </div>   
 
-   </div>
-</div>
 {% endblock %}
