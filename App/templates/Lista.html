@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %} Pokédex{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='Lista.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<h1>
+  Pokédex de {{ trainer }}
+</h1>
+
+<section class="galeria">
+  {% for p in pokemon %}
+   <div class="contenedor">
+    <h2 style="margin-top: 6px;">{{ p.name }}</h2>
+    <br>
+    <br>
+    <a href="{{ url_for('pokemons_bp.datos', pokemon_id=p.id) }}">
+       <div class="image-container">
+       <img src="{{ p.sprites.front_default }}" alt="{{ p.name }}" class="normal-img" />
+       <img src="{{ p.sprites.front_shiny }}" alt="{{ p.name }} shiny" class="shiny-img" />
+    </a>
+       
+     </div>
+    <br style="margin: 3px;">
+   <div class="tipos">
+  {% for tipo in p.types %}
+   <img src="{{ url_for('static', filename='imagenes/' ~ tipo ~ '.png') }}" alt="{{ tipo }}" class="tipo-icono">
+  {% endfor %}
+   </div>
+   </div>
+  {% endfor %}
+</section>
+
+<!-- Formulario de combate solo si hay entrenador -->
+{% if trainer %}
+<section class="contenedor-combate">
+  <form method="post" action="{{ url_for('guardar_pokemon') }}">
+    
+    <label for="pokemon">Escriba el nombre del Pokémon con el cual quiere combatir</label>
+    <input type="text" id="pokemon" name="pokemon" required autofocus>
+    <button type="submit" id="boton-start">Start</button>
+
+    {% if errorCombate %}
+      <p style="color: red; font-weight: bold; margin-top: 10px;">{{ errorCombate }}</p>
+    {% endif %}
+  </form>
+</section>
+{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Batalla Pokémon{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='batalla.css') }}">
+{% endblock %}
+
+{% block content %}
+
+    <div class="character-name">
+      <p><strong>{{ trainer }}</strong></p>
+    <div class="character-player">
+       <img src="{{ url_for('static', filename=character_player) }}" alt="Jugador" class="character-sprite">
+
+    </div>
+    </div>
+    <div class="enemy-name">
+      <p><strong>{{ enemy_name }}</strong></p>
+       <div class="enemy-player">
+        <img src="{{ url_for('static', filename=enemy_player) }}" alt="Jugador" class="enemy-sprite">
+
+       </div>
+    </div>
+    <!-- enemigo -->
+<div class="enemigo-area">
+  <div class="enemigo-info">
+    <h2>{{ enemigo.name | title }}</h2>
+    <div class="hp-barra">
+      <div class="hp-contenido"></div>
+    </div>
+  </div>
+  <img src="{{ enemigo.sprites.front_default }}" alt="{{ enemigo.name }}" class="pokemon-sprite enemigo-sprite">
+</div>
+    <!-- jugador -->
+    <div class="player-area">
+      <div class="player-info">
+        <h2>{{ pokemon.name | title }}</h2>
+        <div class="hp-barra">
+          <div class="hp-contenido"></div>
+        </div>
+      </div>
+       <img src="{{ pokemon.sprites.back_default }}" alt="{{ pokemon.name }}" class="player-sprite">
+    </div>
+    </div>
+    <!-- panel inferior -->
+    <div class="battle-panel">
+      <div class="battle-texto">
+        <p><strong>What should I do?</strong></p>
+      </div>
+     <div class="ataques">
+  {% for move in pokemon.moves[:4] %}
+  <div class="movimientos {{ move.type }}">
+    <button class="tipo-icono">
+      <div class="attack">
+        <p class="move-name">{{ move.name.replace('-', ' ').replace('special', 'Especial').title() }}</p>
+        <img src="{{ url_for('static', filename='imagenes/' ~ move.type ~ '.png') }}" alt="{{ move.type }}" class="icono-move">
+      </div>
+      <br>
+      <div class="stat">
+      <p>Poder: {{ move.power or '—' }}</p>
+      <p>Accuracy: {{ move.accuracy or '—' }}%</p>
+      </div>
+    </button>
+  </div>
+  {% endfor %}
+</div>
+
+  </div>
+{% endblock %}

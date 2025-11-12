@@ -1,0 +1,176 @@
+body {
+  font-family: Arial, sans-serif;
+  background: url(video/Pokemon\ Background\ Loop.gif);
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  overflow-x: hidden;
+  background-repeat: no-repeat;
+}
+
+h1 {
+  color: rgb(150, 13, 13);
+  margin: 10px;
+  margin-bottom: 50px;
+  text-transform: uppercase;
+  font-size: 60px;
+}
+
+img {
+  border-radius: 10px;
+}
+
+hr {
+  margin: 20px 0;
+}
+
+.contenedor {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 20px;  
+  width: 350px;  
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  background-position: center;
+  background-size: 415px;
+  background-repeat: no-repeat;
+  background-image: url(imagenes/pokedexcontenedor.png);
+  position: relative;
+}
+
+
+.contenedor .image-container {
+  position: relative;
+  height: 255px;
+  width: 255px;
+  margin: 5px auto; 
+}
+
+.contenedor-combate {
+  background-color: aliceblue;
+  display: flex;
+  flex-direction: column;
+  align-items: center;     
+  justify-content: center;
+  width: 400px;
+  margin: 40px auto;       
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  gap: 10px;
+}
+.contenedor-combate #pokemon-combate{
+    width: 100%;
+    border-radius: 5px;
+    height: 30px;
+    gap: 10px;
+
+}
+label{
+    font-size: 1.2rem;
+    gap: 10px;
+
+}
+
+.contenedor-combate #boton-start{
+    margin-top: 15px;
+    padding: 10px 25px;
+    font-size: 1.2rem;
+    color: rgb(0, 0, 0);
+    background-color: #44ff00;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: 100%;
+   
+}
+
+
+.contenedor .image-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 255px;
+  width: 255px;
+  border-radius: 10px;
+  object-fit: contain;
+  transition: opacity 0.3s ease;
+  display: block;
+  z-index: 1;
+}
+
+.contenedor .image-container .shiny-img {
+  opacity: 0;
+  z-index: 2;
+}
+
+.contenedor .image-container:hover .shiny-img {
+  opacity: 1;
+}
+
+.contenedor .image-container:hover .normal-img {
+  opacity: 0;
+}
+
+
+
+.contenedor img {
+  max-width: 100%;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+.contenedor h2 {
+  text-align: right;
+  text-transform: uppercase;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.7em;
+  margin-right: 20px;
+  transform: translateY(20px); 
+  padding-top: 0px;
+}
+
+.contenedor .tipos {
+  margin: 0;
+  color: #555;
+  font-size: 0.9em;
+  text-align: center;
+}
+
+.contenedor:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 16px rgb(150, 13, 13);
+  border: 2px solid rgb(150, 13, 13);
+}
+
+.galeria {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+}
+
+.tipos {
+  display: flex;
+  margin-top: 0px;
+  margin-left: 20px;
+}
+
+.tipos img.tipo-icono {
+  width: 70px;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+  height: 20px;
+}
+
+.tipos img.tipo-icono:hover {
+  transform: scale(1.2);
+}
+
+h2 {
+  padding-bottom: 14px;
+}

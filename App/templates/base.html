@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mi sitio{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header>
+        <nav class="nav">
+            <a class="nav-link active" aria-current="page" href="{{ url_for('home') }}"><strong>Home</strong></a>
+            <a class="nav-link active" aria-current="page" href="{{ url_for('pokemons_bp.lista') }}"><strong>Pokédex</strong></a>
+            
+            <!-- Mostrar logout solo si hay sesión activa -->
+            {% if session.get('trainer') %}
+            <a class="nav-link active" aria-current="page" href="{{ url_for('logout') }}"><strong>Cerrar Sesión</strong></a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main>
+        {% block content %} 
+        {% endblock %}
+    </main>
+
+    <footer>
+        Pokemon Arena - Hugo Rey Zas - Yago López Carracedo 2025/2026
+    </footer>
+</body>
+</html>
