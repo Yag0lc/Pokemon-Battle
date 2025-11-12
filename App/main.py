@@ -44,16 +44,31 @@ def home():
     return render_template('Home.html')
 
 
+
+
 # === RUTA DE BATALLA ===
-@app.route('/batalla', methods=['GET'])
+@app.route('/batalla', methods=['GET', 'POST'])
 def batalla():
-    # Verificar que el entrenador esté autenticado
     if 'trainer' not in session:
         return redirect(url_for('home'))
-    
-    nombre = request.args.get("pokemon-combate", "").strip()
-    trainer = session['trainer']  # Obtener de la sesión
+
+    # Si viene por POST, guarda el Pokémon en la sesión
+    if request.method == 'POST':
+        pokemon_nombre = request.form.get('pokemon', '').strip()
+        if pokemon_nombre:
+            session['pokemon_seleccionado'] = pokemon_nombre
+
+    # Verifica que haya un Pokémon seleccionado 
+    if 'pokemon_seleccionado' not in session:
+        return redirect(url_for('pokemons_bp.lista'))
+
+    nombre = session['pokemon_seleccionado']
+    trainer = session['trainer']
     pokemon_list = current_app.config["DATA"]
+    
+    # … resto de tu código de batalla …
+
+
 
     pokemon = next((poke for poke in pokemon_list if poke.get("name").lower() == nombre.lower()), None)
 

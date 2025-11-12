@@ -3,45 +3,51 @@
 {% block title %} Pokédex{% endblock %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='Lista.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='Lista.css') }}">
 {% endblock %}
 
 {% block content %}
 
-    <h1>
-      Pokédex de {{ trainer }}
-   </h1>
+<h1>Pokédex de {{ trainer or 'Invitado' }}</h1>
 
-    <section class="galeria">
+<section class="galeria">
 
-      {% for p in pokemon %}
-       <div class="contenedor">
+    {% for p in pokemon %}
+    <div class="contenedor">
         <h2 style="margin-top: 6px;">{{ p.name }}</h2>
-        <br>
-        <br>
-        <a href="{{ url_for('pokemons_bp.datos', pokemon_id=p.id) }}">
-           <div class="image-container">
-           <img src="{{ p.sprites.front_default }}" alt="{{ p.name }}" class="normal-img" />
-           <img src="{{ p.sprites.front_shiny }}" alt="{{ p.name }} shiny" class="shiny-img" />
-        </a>
-           
-         </div>
-        <br style="margin: 3px;">
-       <div class="tipos">
-      {% for tipo in p.types %}
-       <img src="{{ url_for('static', filename='imagenes/' ~ tipo ~ '.png') }}" alt="{{ tipo }}" class="tipo-icono">
-      {% endfor %}
-       </div>
-       </div>
+        
+        <div class="image-container">
+            <img src="{{ p.sprites.front_default }}" alt="{{ p.name }}" class="normal-img" />
+            <img src="{{ p.sprites.front_shiny }}" alt="{{ p.name }} shiny" class="shiny-img" />
+        </div>
+        
+        <div class="tipos">
+            {% for tipo in p.types %}
+                <img src="{{ url_for('static', filename='imagenes/' ~ tipo ~ '.png') }}" alt="{{ tipo }}" class="tipo-icono">
+            {% endfor %}
+        </div>
+        
+        {% if trainer %}
+        <!-- Formulario de combate solo si hay entrenador -->
+        <form method="post" action="{{ url_for('batalla') }}">
+            <input type="hidden" name="pokemon" value="{{ p.name }}">
+            <button type="submit">¡Combatir!</button>
+        </form>
+        {% else %}
+        <p style="color: gray; font-style: italic;">Introduce tu nombre de entrenador para combatir</p>
+        {% endif %}
+        
+    </div>
     {% endfor %}
-  </section>
 
-<!-- Formulario de combate sin pasar trainer por URL -->
+</section>
+
+<!-- Formulario alternativo de combate escribiendo el nombre -->
+{% if trainer %}
 <section class="contenedor-combate">
-  <form method="get" action="{{ url_for('batalla') }}">
-    
-    <label for="pokemon-combate">Escriba el nombre del Pokémon con el cual quiere combatir</label>
-    <input type="text" id="pokemon-combate" name="pokemon-combate" required autofocus>
+  <form method="post" action="{{ url_for('batalla') }}">
+    <label for="pokemon">Escriba el nombre del Pokémon con el cual quiere combatir</label>
+    <input type="text" id="pokemon" name="pokemon" required autofocus>
     <button type="submit" id="boton-start">Start</button>
 
     {% if errorCombate %}
@@ -49,5 +55,6 @@
     {% endif %}
   </form>
 </section>
+{% endif %}
 
 {% endblock %}
