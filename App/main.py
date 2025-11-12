@@ -44,27 +44,36 @@ def home():
     return render_template('Home.html')
 
 
+@app.route('/seleccionar_pokemon', methods=['POST'])
+def guardar_pokemon():
+    if 'trainer' not in session:
+        return redirect(url_for('home'))
+    
+    pokemon_nombre = request.form.get('pokemon', '').strip()
+    
+    if pokemon_nombre:
+        # Guardar en sesión
+        session['pokemon_seleccionado'] = pokemon_nombre
+        return redirect(url_for('batalla'))  # ahora la URL no tendrá el nombre
+    else:
+        return redirect(url_for('pokemons_bp.lista'))
 
 
 # === RUTA DE BATALLA ===
-@app.route('/batalla', methods=['GET', 'POST'])
+@app.route('/batalla', methods=['GET'])
 def batalla():
-    if 'trainer' not in session:
-        return redirect(url_for('home'))
-
-    # Si viene por POST, guarda el Pokémon en la sesión
-    if request.method == 'POST':
-        pokemon_nombre = request.form.get('pokemon', '').strip()
-        if pokemon_nombre:
-            session['pokemon_seleccionado'] = pokemon_nombre
-
-    # Verifica que haya un Pokémon seleccionado 
-    if 'pokemon_seleccionado' not in session:
+    if 'trainer' not in session or 'pokemon_seleccionado' not in session:
         return redirect(url_for('pokemons_bp.lista'))
 
     nombre = session['pokemon_seleccionado']
     trainer = session['trainer']
     pokemon_list = current_app.config["DATA"]
+    
+    pokemon = next((p for p in pokemon_list if p['name'].lower() == nombre.lower()), None)
+    
+    if not pokemon:
+        errorCombate = f"No se encontró un Pokémon con el nombre '{nombre}'."
+        return render_template("Lista.html", pokemon=pokemon_list, trainer=trainer, errorCombate=errorCombate)
     
     # … resto de tu código de batalla …
 
