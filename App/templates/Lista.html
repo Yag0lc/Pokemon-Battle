@@ -9,7 +9,7 @@
 {% block content %}
 
 <h1>
-  Pokédex de {{ trainer }}
+  Pokédex of {{ trainer }}
 </h1>
 
 <section class="galeria">
@@ -35,12 +35,12 @@
   {% endfor %}
 </section>
 
-<!-- Formulario de combate solo si hay entrenador -->
+<!-- Combat form only if there is a trainer -->
 {% if trainer %}
 <section class="contenedor-combate">
   <form method="post" action="{{ url_for('guardar_pokemon') }}">
     
-    <label for="pokemon">Escriba el nombre del Pokémon con el cual quiere combatir</label>
+    <label for="pokemon">Enter the name of the Pokémon you want to battle with</label>
     <input type="text" id="pokemon" name="pokemon" required autofocus>
     <button type="submit" id="boton-start">Start</button>
 
@@ -50,6 +50,5 @@
   </form>
 </section>
 {% endif %}
-
 
 {% endblock %}

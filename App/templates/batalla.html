@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Batalla Pokémon{% endblock %}
+{% block title %}Pokémon Battle{% endblock %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='batalla.css') }}">
@@ -11,7 +11,7 @@
     <div class="character-name">
       <p><strong>{{ batalla.trainer_name }}</strong></p>
     <div class="character-player">
-       <img src="{{ url_for('static', filename=batalla.character_img) }}" alt="Jugador" class="character-sprite">
+       <img src="{{ url_for('static', filename=batalla.character_img) }}" alt="Player" class="character-sprite">
     </div>
     </div>
     <div class="enemy-name">
@@ -21,7 +21,7 @@
        </div>
     </div>
 
-    <!-- enemigo -->
+    <!-- enemy -->
     <div class="enemigo-area">
       <div class="enemigo-info">
         <h2>{{ batalla.datos_pokemon_rival.name | title }}</h2>
@@ -34,7 +34,7 @@
       <img src="{{ batalla.datos_pokemon_rival.sprites.front_default }}" alt="{{ batalla.datos_pokemon_rival.name }}" class="pokemon-sprite enemigo-sprite">
     </div>
 
-    <!-- jugador -->
+    <!-- player -->
     <div class="player-area">
         <div class="player-info">
           <h2>{{ batalla.datos_pokemon_jugador.name | title }}</h2>
@@ -47,14 +47,14 @@
         <img src="{{ batalla.datos_pokemon_jugador.sprites.back_default }}" alt="{{ batalla.datos_pokemon_jugador.name }}" class="player-sprite">
     </div>
 
-    <!-- panel inferior -->
+    <!-- bottom panel -->
     <div class="battle-panel">
         
-        <!-- ÁREA DEL LOG -->
+        <!-- LOG AREA -->
 
         <div class="battle-log-area">
             <div class="battle-log-messages">
-                <!-- Mostramos el log en orden inverso (lo más nuevo arriba) -->
+                <!-- Display log in reverse order (newest first) -->
                 {% for mensaje in batalla.log | reverse %}
                     <p>{{ mensaje }}</p>
                 {% endfor %}
@@ -63,29 +63,29 @@
         <div class="battle-prompt">
             <p><strong>
                 {% if batalla.partida_terminada %}
-                    ¡La batalla ha terminado!
+                    The battle has ended!
                 {% else %}
-                    ¿Qué debería hacer {{ batalla.datos_pokemon_jugador.name | title }}?
+                    What should {{ batalla.datos_pokemon_jugador.name | title }} do?
                 {% endif %}
             </strong></p>
         </div>
 
-        <!-- 3. Los Ataques (Las acciones) -->
+        <!-- Moves (Actions) -->
         <div class="ataques">
             {% if not batalla.partida_terminada %}
-                <!-- Si la partida NO ha terminado, muestra los botones -->
+                <!-- If the match has NOT ended, display the buttons -->
                 {% for move in batalla.ataques_jugador %}
                 <div class="movimientos {{ move.type }}">
                     <form action="{{ url_for('atacar') }}" method="POST">
                         <input type="hidden" name="ataque" value="{{ move.name }}">
                         <button type="submit" class="tipo-icono">
                             <div class="attack">
-                                <p class="move-name">{{ move.name.replace('-', ' ').replace('special', 'Especial').title() }}</p>
+                                <p class="move-name">{{ move.name.replace('-', ' ').replace('special', 'Special').title() }}</p>
                                 <img src="{{ url_for('static', filename='imagenes/' ~ move.type ~ '.png') }}" alt="{{ move.type }}" class="icono-move">
                             </div>
                             <br>
                             <div class="stat">
-                                <p>Poder: {{ move.power or '—' }}</p>
+                                <p>Power: {{ move.power or '—' }}</p>
                                 <p>Accuracy: {{ move.accuracy or '—' }}%</p>
                             </div>
                         </button>
@@ -93,12 +93,12 @@
                 </div>
                 {% endfor %}
             {% else %}
-                <!-- Si la partida HA terminado, muestra un botón para volver -->
+                <!-- If the match HAS ended, display a button to go back -->
                 <div class="movimientos normal" style="width: 100%;">
                      <form action="{{ url_for('pokemons_bp.lista') }}" method="GET">
                         <button type="submit" class="tipo-icono" style="width: 100%; justify-content: center;">
                             <div class="attack" style="text-align: center;">
-                                <p class="move-name">Volver a la Lista</p>
+                                <p class="move-name">Back to List</p>
                             </div>
                         </button>
                     </form>

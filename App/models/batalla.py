@@ -69,10 +69,10 @@ class Batalla:
         # 2. Encontrar el ataque que el jugador seleccionó
         ataque_jugador = next((a for a in self.ataques_jugador if a['name'] == nombre_ataque_jugador), None)
         if not ataque_jugador:
-            self.log.append(f"¡{self.datos_pokemon_jugador['name'].title()} intentó usar un movimiento desconocido!")
+            self.log.append(f"¡{self.datos_pokemon_jugador['name'].title()} tried to use an unknown move!")
             return
 
-        # 3. El rival elige un ataque al azar (IA simple)
+        # 3. El rival elige un ataque al azar
         ataque_rival = random.choice(self.ataques_rival)
 
         # 4. Decidir el orden de ataque basado en la VELOCIDAD
@@ -107,8 +107,8 @@ class Batalla:
         # 1. Filtro para ataques de estado (ej. Látigo)
         power = ataque.get('power')
         if power is None or power == 0:
-            self.log.append(f"¡{nombre_atacante} usó {nombre_ataque}! ¡Pero no tuvo efecto!")
-            return # No hace daño, termina el ataque
+            self.log.append(f"¡{nombre_atacante} use {nombre_ataque}! But it had no effect!")
+            return
 
         # 2. Comprobar Precisión (Accuracy)
         accuracy = ataque.get('accuracy', 100) # Asumir 100% si no está definido
@@ -116,7 +116,7 @@ class Batalla:
             accuracy = 100
             
         if random.randint(1, 100) > accuracy:
-            self.log.append(f"¡{nombre_atacante} usó {nombre_ataque}! ¡El ataque falló!")
+            self.log.append(f"¡{nombre_atacante} use {nombre_ataque}! The attack missed!")
             return # El ataque falla, termina
 
         # 3. Calcular Daño (simple, usamos 'power' como daño directo)
@@ -136,22 +136,21 @@ class Batalla:
         
         # 5. Registrar la acción en el log
         self.log.append(
-            f"¡{nombre_atacante} usó {nombre_ataque}! "
-            f"{nombre_defensor} perdió {dano} PS."
+            f"¡{nombre_atacante} use {nombre_ataque}! "
+            f"{nombre_defensor} lost {dano} HP."
         )
 
         # 6. Comprobar si la batalla termina (K.O.)
         if self.vida_jugador == 0 or self.vida_rival == 0:
             self.partida_terminada = True
             
-            # Determinar quién ganó y quién perdió
-            if self.vida_rival == 0:
-                ganador = nombre_atacante # El atacante que hizo el último golpe
-                perdedor = nombre_defensor
-            else: # Si la vida del jugador es 0
-                ganador = nombre_defensor
-                perdedor = nombre_atacante
+            if self.vida_jugador > 0:
+                ganador = self.datos_pokemon_jugador['name'].title()
+                perdedor = self.datos_pokemon_rival['name'].title()
+            else:
+                ganador = self.datos_pokemon_rival['name'].title()
+                perdedor = self.datos_pokemon_jugador['name'].title()
 
-            self.log.append(f"¡{perdedor} se ha debilitado!")
+            self.log.append(f"¡{perdedor} has been weakened!")
             # Mensaje simplificado como pediste:
-            self.log.append(f"¡{ganador} ha ganado la batalla!")
+            self.log.append(f"¡{ganador} has won the battle!")

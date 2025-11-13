@@ -2,8 +2,8 @@ import os
 import random
 from flask import Flask, current_app, json, render_template, request, redirect, url_for, session
 from flask_session import Session
-from App.routes.pokemon_routes import pokemons_bp
-from App.models.batalla import Batalla
+from routes.pokemon_routes import pokemons_bp
+from models.batalla import Batalla
 
 app = Flask(__name__)
 

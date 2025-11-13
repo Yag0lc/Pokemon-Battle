@@ -45,12 +45,12 @@
 
         <h1><strong>{{ pokemon.name | title }}</strong> </h1>
         <br>
-        <h2>Información Física</h2>
+        <h2>Physical Information</h2>
         <ul class="fisico-lista">
-            <li><strong>Altura:</strong> {{ (pokemon.height / 10) }} m</li>
-            <li><strong>Peso:</strong> {{ (pokemon.weight / 10) }} kg</li>
+            <li><strong>Height:</strong> {{ (pokemon.height / 10) }} m</li>
+            <li><strong>Weight:</strong> {{ (pokemon.weight / 10) }} kg</li>
         </ul>
-              <h2>Estadísticas Base</h2>
+              <h2>Base Statistics</h2>
         <div class="stats-pokemon">
             {% for stat in pokemon.stats %}
             <div class="stat-barras">
@@ -61,7 +61,7 @@
             {% endfor %}
         </div>
         <div class="stats-total">
-            <p>Total de Stats Base: {{ pokemon.stats | sum(attribute='value') }}</p>
+            <p>Total Base Stats: {{ pokemon.stats | sum(attribute='value') }}</p>
         </div>
         
 
@@ -76,16 +76,16 @@
 
     </section>
          <section class="contenedor">  
-        <h2>Movimientos pokemon</h2>
+        <h2>Pokémon Moves</h2>
        <div class="move-container">
   {% for move in pokemon.moves %}
     <div class="move-card {{move.type}}">
       <div class="attack">
-      <h3 class="move-name">{{ move.name.replace('-', ' ').replace('special', 'Especial').title() }}</h3>
+      <h3 class="move-name">{{ move.name.replace('-', ' ').replace('special', 'Special').title() }}</h3>
       <img src="{{ url_for('static', filename='imagenes/' ~ move.type ~ '.png') }}" alt="{{ move.type }}" class="tipo-icono">
       </div>
       <div class="stat">
-      <p><strong>Poder:</strong> {{ move.power or '—' }}</p>
+      <p><strong>Power:</strong> {{ move.power or '—' }}</p>
       <p><strong>Accuracy:</strong> {{ move.accuracy or '—' }}%</p>
       </div>
     </div>

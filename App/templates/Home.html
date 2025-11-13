@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Inicio{% endblock %}
+{% block title %}Home{% endblock %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='Home.css') }}">
@@ -13,11 +13,11 @@
         <source src="{{ url_for('static', filename='video/pokemon-combate.mp4') }}" type="video/mp4">
         </video>
         <div class="contenedor-dentro">
-            <h1>Bienvenido a Pokemon Arena</h1>
-            <p>Hazte el mejor.</p>
-            <!-- Usar método POST para guardar en sesión -->
+            <h1>Welcome to Pokemon Arena</h1>
+            <p>Be the best.</p>
+            <!-- Use POST method to save in session -->
             <form method="post" action="{{ url_for('home') }}">
-                <label for="trainer">Introduzca su nombre de entrenador</label>
+                <label for="trainer">Enter your trainer name</label>
                     {% if errorNombre %}
                         <p style="color: rgb(131, 0, 0);">{{ errorNombre }}</p>
                     {% endif %}

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Mi sitio{% endblock %}</title>
+    <title>{% block title %}My site{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
     {% block extra_css %}{% endblock %}
 </head>
@@ -13,9 +13,9 @@
             <a class="nav-link active" aria-current="page" href="{{ url_for('home') }}"><strong>Home</strong></a>
             <a class="nav-link active" aria-current="page" href="{{ url_for('pokemons_bp.lista') }}"><strong>Pokédex</strong></a>
             
-            <!-- Mostrar logout solo si hay sesión activa -->
+            <!-- Show logout only if there is an active session -->
             {% if session.get('trainer') %}
-            <a class="nav-link active" aria-current="page" href="{{ url_for('logout') }}"><strong>Cerrar Sesión</strong></a>
+            <a class="nav-link active" aria-current="page" href="{{ url_for('logout') }}"><strong>Log Out</strong></a>
             {% endif %}
         </nav>
     </header>
