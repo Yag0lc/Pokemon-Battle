@@ -3,21 +3,20 @@ import random
 from flask import Flask, current_app, json, render_template, request, redirect, url_for, session
 from flask_session import Session
 from App.routes.pokemon_routes import pokemons_bp
+from App.models.batalla import Batalla
 
 app = Flask(__name__)
 
 # === CONFIGURACIÓN DE SESIÓN ===
 app.config['SECRET_KEY'] = "Pokemon-Battle"
-app.config['SESSION_TYPE'] = 'filesystem'  # Guarda sesiones en archivos
+app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SESSION_PERMANENT'] = False
-app.config['SESSION_USE_SIGNER'] = True  # Firma las cookies para mayor seguridad
-
-# Inicializar Flask-Session
+app.config['SESSION_USE_SIGNER'] = True
 Session(app)
 
 # === CARGA DE DATOS ===
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA_PATH = os.path.join(BASE_DIR, "data", "pokemon.json")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_PATH = os.path.join(BASE_DIR, "..", "data", "pokemon.json")
 
 with open(DATA_PATH, "r", encoding="utf-8") as f:
     app.config["DATA"] = json.load(f)
@@ -32,15 +31,16 @@ def home():
     if request.method == 'POST':
         entrenador = request.form.get('trainer', '').strip()
         
-        # Validación del nombre del entrenador
         if entrenador and 3 <= len(entrenador) <= 15:
-            # Guardar en sesión
             session['trainer'] = entrenador
             return redirect(url_for('pokemons_bp.lista'))
         else:
             errorNombre = "El nombre del entrenador debe tener entre 3 y 15 caracteres."
             return render_template('Home.html', errorNombre=errorNombre)
     
+    if 'trainer' in session:
+        return redirect(url_for('pokemons_bp.lista'))
+
     return render_template('Home.html')
 
 
@@ -52,45 +52,51 @@ def guardar_pokemon():
     pokemon_nombre = request.form.get('pokemon', '').strip()
     
     if pokemon_nombre:
-        # Guardar en sesión
+        if session.get('pokemon_seleccionado') != pokemon_nombre:
+            session.pop('batalla_actual', None) 
+            
         session['pokemon_seleccionado'] = pokemon_nombre
-        return redirect(url_for('batalla'))  # ahora la URL no tendrá el nombre
+        return redirect(url_for('batalla'))
     else:
         return redirect(url_for('pokemons_bp.lista'))
 
 
-# === RUTA DE BATALLA ===
+# === RUTA DE BATALLA (GET) ===
 @app.route('/batalla', methods=['GET'])
 def batalla():
+    #  Comprobar que tenemos todo para estar aquí
     if 'trainer' not in session or 'pokemon_seleccionado' not in session:
-        return redirect(url_for('pokemons_bp.lista'))
+        return redirect(url_for('home'))
 
-    nombre = session['pokemon_seleccionado']
-    trainer = session['trainer']
+    # Recuperar datos de la sesión
+    trainer_name = session['trainer']
+    pokemon_nombre = session['pokemon_seleccionado']
     pokemon_list = current_app.config["DATA"]
     
-    pokemon = next((p for p in pokemon_list if p['name'].lower() == nombre.lower()), None)
-    
-    if not pokemon:
-        errorCombate = f"No se encontró un Pokémon con el nombre '{nombre}'."
-        return render_template("Lista.html", pokemon=pokemon_list, trainer=trainer, errorCombate=errorCombate)
-    
-    # … resto de tu código de batalla …
+    #  Comprobar si ya existe una batalla en curso
+    if 'batalla_actual' in session:
+        batalla_obj = session['batalla_actual']
+        
+        #  Asegurar compatibilidad con objetos antiguos
+        if not hasattr(batalla_obj, 'partida_terminada'):
+            batalla_obj.partida_terminada = False
+            session['batalla_actual'] = batalla_obj
+        
+        # Comprobar que la batalla en sesión es del pokémon correcto
+        if batalla_obj.datos_pokemon_jugador['name'].lower() != pokemon_nombre.lower():
+            session.pop('batalla_actual', None)
+            return redirect(url_for('batalla'))
+        
+    else:
+        # Si NO hay batalla en sesión, creamos una nueva
+        pokemon_jugador = next((p for p in pokemon_list if p['name'].lower() == pokemon_nombre.lower()), None)
+        
+        if not pokemon_jugador:
+            return redirect(url_for('pokemons_bp.lista'))
 
+        enemigo = random.choice([p for p in pokemon_list if p['id'] != pokemon_jugador['id']])
 
-
-    pokemon = next((poke for poke in pokemon_list if poke.get("name").lower() == nombre.lower()), None)
-
-    if pokemon:
-        enemigo = random.choice(pokemon_list)
-
-        pokemon_moves = pokemon.copy()
-        pokemon_moves["moves"] = random.sample(pokemon["moves"], min(4, len(pokemon["moves"])))
-
-        enemigo_con_moves = enemigo.copy()
-        enemigo_con_moves["moves"] = random.sample(enemigo["moves"], min(4, len(enemigo["moves"])))
-
-        # Imágenes del jugador y del enemigo
+        # --- Listas de Imágenes ---
         character_player_img = [
             "imagenes/Torrente.png", "imagenes/Gitano.png", "imagenes/Espetero.png",
             "imagenes/Cid.png", "imagenes/alain.png", "imagenes/alder.png", "imagenes/arceus.png",
@@ -104,7 +110,6 @@ def batalla():
             "imagenes/red.png", "imagenes/serena.png", "imagenes/steven.png",
             "imagenes/Xavi.png", "imagenes/dawn.png"
         ]
-
         enemy_player_img = [
             "imagenes/image.png", "imagenes/Espetero.png", "imagenes/Gitano.png",
             "imagenes/Torrente.png", "imagenes/Cid.png", "imagenes/Aizkolari.png",
@@ -119,7 +124,6 @@ def batalla():
             "imagenes/cliff.png", "imagenes/xerosic.png", "imagenes/flaregrunt.png",
             "imagenes/kukui.png"
         ]
-
         enemy_names = {
             "imagenes/image.png": "Sergio Ramos", "imagenes/Espetero.png": "Espetero",
             "imagenes/Gitano.png": "Gitano", "imagenes/Torrente.png": "Torrente",
@@ -141,31 +145,48 @@ def batalla():
             "imagenes/flaregrunt.png": "Flare Grunt", "imagenes/kukui.png": "Profesor Kukui"
         }
 
-        character_player = random.choice(character_player_img)
-        enemy_player = random.choice(enemy_player_img)
-        enemy_name = enemy_names.get(enemy_player, "Desconocido")
+        char_img = random.choice(character_player_img)
+        enemy_img = random.choice(enemy_player_img)
+        enemy_name = enemy_names.get(enemy_img, "Desconocido")
+        
+        batalla_obj = Batalla(pokemon_jugador, enemigo, char_img, enemy_img, enemy_name, trainer_name)
+        session['batalla_actual'] = batalla_obj
 
-        return render_template(
-            "batalla.html",
-            pokemon=pokemon_moves,
-            trainer=trainer,
-            enemigo=enemigo_con_moves,
-            character_player=character_player,
-            enemy_player=enemy_player,
-            enemy_name=enemy_name
-        )
-    else:
-        errorCombate = f"No se encontró un Pokémon con el nombre '{nombre}'."
-        return render_template("Lista.html", pokemon=pokemon_list, trainer=trainer, errorCombate=errorCombate)
+    # Renderizar la plantilla
+    return render_template("batalla.html", batalla=batalla_obj)
 
 
-# === RUTA PARA CERRAR SESIÓN (OPCIONAL) ===
+# === RUTA DE BATALLA (POST) ===
+@app.route('/batalla/atacar', methods=['POST'])
+def atacar():
+    # Comprobar que hay una batalla en sesión
+    if 'batalla_actual' not in session:
+        return redirect(url_for('batalla'))
+        
+    # Cargar la batalla desde la sesión
+    batalla_obj = session['batalla_actual']
+    
+    # Obtener el ataque del formulario
+    nombre_ataque = request.form.get('ataque')
+    
+    if nombre_ataque:
+        # Ejecutar el turno
+        batalla_obj.ejecutar_turno(nombre_ataque)
+        
+        # Guardar el estado actualizado
+        session['batalla_actual'] = batalla_obj
+
+    return redirect(url_for('batalla'))
+
+
+# === RUTA PARA CERRAR SESIÓN ===
 @app.route('/logout')
 def logout():
     session.pop('trainer', None)
+    session.pop('pokemon_seleccionado', None)
+    session.pop('batalla_actual', None)
     return redirect(url_for('home'))
 
 
 # === EJECUCIÓN ===
-if __name__ == '__main__':
-    app.run('0.0.0.0', 8080, debug=True)
+app.run('0.0.0.0', 8080, debug=True)

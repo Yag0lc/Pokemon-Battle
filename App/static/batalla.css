@@ -22,8 +22,6 @@ main{
     margin: 40px auto;
     border-radius: 10px;
     overflow: hidden;
-
-
 }
 .pokemons-container {
   position: absolute;
@@ -44,7 +42,6 @@ main{
   margin-right: 375px;
   display: flex;
   flex-direction: row;
-  
 }
 
 .character-name{
@@ -90,7 +87,7 @@ main{
 }
 
 
-/*  Información   */
+/* Información   */
 .enemigo-info, .player-info {
   background: rgba(0, 0, 0, 0.6);
   color: white;
@@ -101,8 +98,6 @@ main{
   height: 45px;
 }
 
-
-
 .hp-barra {
   width: auto;
   height: 10px;
@@ -111,7 +106,6 @@ main{
   margin-top: 5px;
 }
 
-
 .hp-contenido {
   height: 100%;
   background-color: green;
@@ -119,14 +113,11 @@ main{
   width: 100%;
 }
 
-
-
 /* sprites */
 .pokemon-sprite {
   width: 200px;
   height: 200px;
 }
-
 
 .enemigo-sprite {
   position: relative;
@@ -134,7 +125,6 @@ main{
   height: 300px;
   width: 300px;
 }
-
 
 .player-sprite {
   position: relative;
@@ -146,10 +136,11 @@ main{
 
 /* Panel de batalla */
 .battle-panel {
-  position: absolute;
+    position: absolute;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap; 
     align-items: center;
+    justify-content: center; 
     bottom: 0;
     width: 1200px;
     color: rgb(0, 0, 0);
@@ -160,31 +151,60 @@ main{
     margin-left: 340px;
     margin-bottom: 75px;
     padding-right: 36px;
- 
-}
-.pl{
-  left: 200px;
 }
 
-.battle-texto {
-  font-size: 16px;
-  height: 16px;
+/* ÁREA DEL LOG */
+
+.battle-log-area {
+    display: flex;
+    height: auto;
+    overflow-y: auto;
+    width: auto;
+    margin-left: 804px;
+    margin-bottom: 10px; 
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #aaa;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 16px; 
+}
+
+
+.battle-log-messages {
+    display: flex;
+    flex-direction: column-reverse; 
+    width: 270px;
+}
+.battle-log-messages p {
+    margin: 3px 0;
+}
+
+
+
+.battle-prompt {
+    width: 100%;
+    text-align: center;
+}
+
+
+.battle-prompt p {
+    display: flex;
+    font-size: 30px;
+    margin-top: 16px;
+    flex-direction: column;
 
 }
-.battle-texto p {
-  display: flex;
-  font-size: 27px;
-  padding-bottom: 10px;
-  flex-direction: column;
- 
-}
+
+
+/* ÁREA DE ATAQUES */
 .ataques {
-  margin-top: 20px;
+  margin-top: 10px;
   display: flex;
   flex-direction: row;
   gap: 25px;
   flex-wrap: wrap;
   justify-content: center;
+  width: 100%; 
 }
 
 .stat{
@@ -207,6 +227,7 @@ main{
 .ataques :hover{
     transform: scale(1.05);
 }
+
 .movimientos button {
   padding: 12px;
   color: rgb(0, 0, 0);
@@ -215,34 +236,24 @@ main{
   font-weight: bold;
   cursor: pointer;
   font-size: 18px;
-    width: 227px;
+  width: 227px;
   align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: center;
   height: 75px;
-   src:"{{ url_for('static', filename='imagenes/' ~ move.type ~ '.png') }}";
-   flex-wrap: wrap;
-
-
+  flex-wrap: wrap;
 }
 .movimientos button p{
   display: flex;
   justify-content: center;
 }
 
-
-.pokemon-sprite .player-sprite {
-  width: 100px;
-
-
-}
-
-
 footer{
   background-color: black;
 }
 
+/* COLORES DE LOS BOTONES */
 .movimientos.fairy button { background: #ff78dd; }
 .movimientos.dark button { background: #705848; }
 .movimientos.dragon button { background: #5060E1; }
