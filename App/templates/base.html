@@ -11,7 +11,7 @@
     <header>
         <nav class="nav">
             <a class="nav-link active" aria-current="page" href="{{ url_for('home') }}"><strong>Home</strong></a>
-            <a class="nav-link active" aria-current="page" href="{{ url_for('pokemons_bp.lista') }}"><strong>Pokédex</strong></a>
+            <a class="nav-link active" aria-current="page" href="{{ url_for('pokemons_bp_lista.lista') }}"><strong>Pokédex</strong></a>
             
             <!-- Show logout only if there is an active session -->
             {% if session.get('trainer') %}
@@ -29,4 +29,4 @@
         Pokemon Arena - Hugo Rey Zas - Yago López Carracedo 2025/2026
     </footer>
 </body>
-</html>
+</html> 

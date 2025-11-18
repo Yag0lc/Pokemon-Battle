@@ -1,9 +1,10 @@
-from flask import Blueprint, render_template, request, current_app, session, redirect, url_for
+from flask import Blueprint, app, render_template, request, current_app, session, redirect, url_for
 
-pokemons_bp = Blueprint('pokemons_bp', __name__)
+pokemons_bp_lista = Blueprint('pokemons_bp_lista', __name__)
 
 
-@pokemons_bp.route('/lista', methods=["GET"])
+
+@pokemons_bp_lista.route('/lista', methods=["GET"])
 def lista():
     # Verificar que el entrenador esté autenticado
     if 'trainer' not in session:
@@ -16,7 +17,7 @@ def lista():
     return render_template('Lista.html', pokemon=pokemon_list, trainer=trainer)
 
 
-@pokemons_bp.route('/lista/<int:pokemon_id>')
+@pokemons_bp_lista.route('/lista/<int:pokemon_id>')
 def datos(pokemon_id):
     # Verificar que el entrenador esté autenticado
     if 'trainer' not in session:

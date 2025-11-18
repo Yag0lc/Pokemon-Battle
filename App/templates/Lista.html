@@ -18,7 +18,7 @@
     <h2 style="margin-top: 6px;">{{ p.name }}</h2>
     <br>
     <br>
-    <a href="{{ url_for('pokemons_bp.datos', pokemon_id=p.id) }}">
+    <a href="{{ url_for('pokemons_bp_lista.datos', pokemon_id=p.id) }}">
        <div class="image-container">
        <img src="{{ p.sprites.front_default }}" alt="{{ p.name }}" class="normal-img" />
        <img src="{{ p.sprites.front_shiny }}" alt="{{ p.name }} shiny" class="shiny-img" />
