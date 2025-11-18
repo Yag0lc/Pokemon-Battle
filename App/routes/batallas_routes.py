@@ -20,6 +20,8 @@ def batalla():
     pokemon_list = current_app.config["DATA"]
     
     #  Comprobar si ya existe una batalla en curso
+    
+    
     if 'batalla_actual' in session:
         batalla_obj = session['batalla_actual']
         
@@ -27,10 +29,22 @@ def batalla():
         
     else:
         # Si NO hay batalla en sesión, creamos una nueva
-        pokemon_jugador = buscar_por_nombre(pokemon_nombre)
+        pokemon_jugador_obj = buscar_por_nombre(pokemon_nombre)
         
-        if not pokemon_jugador:
+        if not pokemon_jugador_obj:
             return redirect(url_for('pokemons_bp_lista.lista'))
+        pokemon_jugador = {
+        'id': pokemon_jugador_obj.id,
+        'name': pokemon_jugador_obj.name,
+        'height': pokemon_jugador_obj.height,
+        'weight': pokemon_jugador_obj.weight,
+        'stats': pokemon_jugador_obj.stats,
+        'sprites': pokemon_jugador_obj.sprites,
+        'moves': pokemon_jugador_obj.moves,
+        'types': pokemon_jugador_obj.types
+    }
+
+
 
         enemigo = random.choice([p for p in pokemon_list if p['id'] != pokemon_jugador['id']])
 
@@ -99,7 +113,7 @@ def batalla():
 def atacar():
     # Comprobar que hay una batalla en sesión
     if 'batalla_actual' not in session:
-        return redirect(url_for('batalla'))
+        return redirect(url_for('pokemons_bp_batalla.batalla'))
         
     # Cargar la batalla desde la sesión
     batalla_obj = session['batalla_actual']
@@ -114,4 +128,4 @@ def atacar():
         # Guardar el estado actualizado
         session['batalla_actual'] = batalla_obj
 
-    return redirect(url_for('batalla'))
+    return redirect(url_for('pokemons_bp_batalla.batalla'))
