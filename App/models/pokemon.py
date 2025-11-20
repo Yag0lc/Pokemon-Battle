@@ -1,6 +1,4 @@
 
-
-
 class Pokemon:
    def __init__(self,id,name,height,weight,stats,sprites,moves,types):
       self.height = height

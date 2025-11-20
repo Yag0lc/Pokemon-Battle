@@ -11,42 +11,41 @@ pokemons_bp_batalla = Blueprint('pokemons_bp_batalla', __name__)
 # === RUTA DE BATALLA (GET) ===
 @pokemons_bp_batalla.route('/batalla', methods=['GET'])
 def batalla():
-    if 'trainer' not in session or 'pokemon_seleccionado' not in session:
+    if 'trainer' not in session and 'pokemon_seleccionado' not in session:
         return redirect(url_for('home'))
 
-    # Recuperar datos de la sesión
     trainer_name = session['trainer'] 
     pokemon_nombre = session['pokemon_seleccionado']
     pokemon_list = current_app.config["DATA"]
     
-    #  Comprobar si ya existe una batalla en curso
-    
-    
+    #  Comprobar si ya existe una batalla en curso  
     if 'batalla_actual' in session:
-        batalla_obj = session['batalla_actual']
-        
-
+        batalla_obj = session['batalla_actual']       
         
     else:
         # Si NO hay batalla en sesión, creamos una nueva
-        pokemon_jugador_obj = buscar_por_nombre(pokemon_nombre)
+        pokemon_jugador = buscar_por_nombre(pokemon_nombre)
         
-        if not pokemon_jugador_obj:
+        if not pokemon_jugador:
             return redirect(url_for('pokemons_bp_lista.lista'))
         pokemon_jugador = {
-        'id': pokemon_jugador_obj.id,
-        'name': pokemon_jugador_obj.name,
-        'height': pokemon_jugador_obj.height,
-        'weight': pokemon_jugador_obj.weight,
-        'stats': pokemon_jugador_obj.stats,
-        'sprites': pokemon_jugador_obj.sprites,
-        'moves': pokemon_jugador_obj.moves,
-        'types': pokemon_jugador_obj.types
+        'id': pokemon_jugador.id,
+        'name': pokemon_jugador.name,
+        'height': pokemon_jugador.height,
+        'weight': pokemon_jugador.weight,
+        'stats': pokemon_jugador.stats,
+        'sprites': pokemon_jugador.sprites,
+        'moves': pokemon_jugador.moves,
+        'types': pokemon_jugador.types
     }
 
+        enemigo = None
 
+        lista_enemigo = []
+        for p in pokemon_list:              
+            lista_enemigo.append(p)
 
-        enemigo = random.choice([p for p in pokemon_list if p['id'] != pokemon_jugador['id']])
+        enemigo = random.choice(lista_enemigo)
 
         # --- Listas de Imágenes ---
         character_player_img = [
@@ -104,7 +103,6 @@ def batalla():
         batalla_obj = Batalla(pokemon_jugador, enemigo, char_img, enemy_img, enemy_name, trainer_name)
         session['batalla_actual'] = batalla_obj
 
-    # Renderizar la plantilla
     return render_template("batalla.html", batalla=batalla_obj)
 
 
@@ -118,11 +116,10 @@ def atacar():
     # Cargar la batalla desde la sesión
     batalla_obj = session['batalla_actual']
     
-    # Obtener el ataque del formulario
     nombre_ataque = request.form.get('ataque')
     
     if nombre_ataque:
-        # Ejecutar el turno
+
         batalla_obj.ejecutar_turno(nombre_ataque)
         
         # Guardar el estado actualizado

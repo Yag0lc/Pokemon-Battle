@@ -6,6 +6,7 @@ from App.routes.pokemon_routes import pokemons_bp_lista
 from App.models.batalla import Batalla
 from App.routes.batallas_routes import pokemons_bp_batalla
 
+
 app = Flask(__name__)
 
 # === CONFIGURACIÓN DE SESIÓN ===
@@ -45,23 +46,6 @@ def home():
         return redirect(url_for('pokemons_bp_lista.lista'))
 
     return render_template('Home.html')
-
-
-@app.route('/seleccionar_pokemon', methods=['POST'])
-def guardar_pokemon():
-    if 'trainer' not in session:
-        return redirect(url_for('home'))
-    
-    pokemon_nombre = request.form.get('pokemon', '').strip()
-    
-    if pokemon_nombre:
-        if session.get('pokemon_seleccionado') != pokemon_nombre:
-            session.pop('batalla_actual', None) 
-            
-        session['pokemon_seleccionado'] = pokemon_nombre
-        return redirect(url_for('pokemons_bp_batalla.batalla'))
-    else:
-        return redirect(url_for('pokemons_bp_lista.lista'))
 
 
 

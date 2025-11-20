@@ -38,7 +38,7 @@
 <!-- Combat form only if there is a trainer -->
 {% if trainer %}
 <section class="contenedor-combate">
-  <form method="post" action="{{ url_for('guardar_pokemon') }}">
+  <form method="post" action="{{ url_for('pokemons_bp_lista.guardar_pokemon') }}">
     
     <label for="pokemon">Enter the name of the Pokémon you want to battle with</label>
     <input type="text" id="pokemon" name="pokemon" required autofocus>

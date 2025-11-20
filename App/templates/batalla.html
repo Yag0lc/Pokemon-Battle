@@ -76,7 +76,7 @@
                 <!-- If the match has NOT ended, display the buttons -->
                 {% for move in batalla.ataques_jugador %}
                 <div class="movimientos {{ move.type }}">
-                    <form action="{{ url_for('atacar') }}" method="POST">
+                    <form action="{{ url_for('pokemons_bp_batalla.atacar') }}" method="POST">
                         <input type="hidden" name="ataque" value="{{ move.name }}">
                         <button type="submit" class="tipo-icono">
                             <div class="attack">

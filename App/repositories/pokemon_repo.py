@@ -28,7 +28,7 @@ def buscar_por_nombre(nombre):
     pokemons = obtener_pokemons()
     pokemon_a_buscar = None
     for p in pokemons:
-         if p.name == nombre:
+         if p.name.lower() == nombre.lower():
             pokemon_a_buscar = p
             break
     return pokemon_a_buscar
