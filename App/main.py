@@ -5,6 +5,8 @@ from flask_session import Session
 from App.routes.pokemon_routes import pokemons_bp_lista
 from App.models.batalla import Batalla
 from App.routes.batallas_routes import pokemons_bp_batalla
+from App.database.db import db
+
 
 
 app = Flask(__name__)
@@ -14,6 +16,9 @@ app.config['SECRET_KEY'] = "Pokemon-Battle"
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SESSION_PERMANENT'] = False
 app.config['SESSION_USE_SIGNER'] = True
+
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://usuario:contraseña@servidor/basedatos"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 Session(app)
 
 # === CARGA DE DATOS ===
@@ -56,6 +61,13 @@ def logout():
     session.pop('pokemon_seleccionado', None)
     session.pop('batalla_actual', None)
     return redirect(url_for('home'))
+
+
+@app.cli.command("crear-tablas")
+def crear_tablas():
+    print("Creando estructura de base de datos...")
+    db.create_all()
+    print("Base de datos creada correctamente.")
 
 
 # === EJECUCIÓN ===

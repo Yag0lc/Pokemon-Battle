@@ -10,6 +10,3 @@ class Pokemon:
       self.moves = moves
       self.types = types
 
-
-   def _str_(self):
-      return f"{self.name.capitalize()} (ID: {self.id})"

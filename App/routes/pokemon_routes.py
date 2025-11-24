@@ -1,5 +1,5 @@
 from flask import Blueprint, app, render_template, request, current_app, session, redirect, url_for
-from App.repositories.pokemon_repo import buscar_por_id, buscar_por_nombre
+from App.services.pokemon_service import obtener_pokemon_por_id, buscar_por_nombre
 
 
 pokemons_bp_lista = Blueprint('pokemons_bp_lista', __name__)
@@ -25,7 +25,7 @@ def datos(pokemon_id):
     if 'trainer' not in session:
         return redirect(url_for('home'))
     
-    pokemon = buscar_por_id(pokemon_id)
+    pokemon = obtener_pokemon_por_id(pokemon_id)
     
     if pokemon is None:
         return "Pokémon no encontrado", 404

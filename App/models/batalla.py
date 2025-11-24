@@ -1,53 +1,38 @@
 import random
+from App.repositories.batalla_repo import get_stat
 
 class Batalla:
-    """
-    Esta clase modela y almacena el estado completo de una batalla Pokémon.
-    """
+    
+    # Esta clase modela y almacena el estado completo de una batalla Pokémon.
+    
     
     def __init__(self, pokemon_jugador, pokemon_rival, character_img, enemy_img, enemy_name, trainer_name):
-        """
-        Inicializa la batalla, seleccionando ataques y guardando estadísticas.
-        """
-        # --- Datos Generales ---
+
         self.datos_pokemon_jugador = pokemon_jugador
         self.datos_pokemon_rival = pokemon_rival
         self.character_img = character_img
         self.enemy_img = enemy_img
         self.enemy_name = enemy_name
-        self.trainer_name = trainer_name # Para mostrar el nombre del jugador
+        self.trainer_name = trainer_name 
 
-        # --- Estadísticas del Jugador ---
-        self.velocidad_jugador = self._get_stat(pokemon_jugador, 'speed')
-        self.vida_max_jugador = self._get_stat(pokemon_jugador, 'hp')
-        self.vida_jugador = self.vida_max_jugador # Vida actual empieza al máximo
+        self.velocidad_jugador = get_stat(pokemon_jugador, 'speed')
+        self.vida_max_jugador = get_stat(pokemon_jugador, 'hp')
+        self.vida_jugador = self.vida_max_jugador
 
-        # --- Estadísticas del Rival ---
-        self.velocidad_rival = self._get_stat(pokemon_rival, 'speed')
-        self.vida_max_rival = self._get_stat(pokemon_rival, 'hp')
-        self.vida_rival = self.vida_max_rival # Vida actual empieza al máximo
+        # --- Rival ---
+        self.velocidad_rival = get_stat(pokemon_rival, 'speed')
+        self.vida_max_rival = get_stat(pokemon_rival, 'hp')
+        self.vida_rival = self.vida_max_rival
 
         # --- Selección de Ataques ---
         self.ataques_jugador = self._seleccionar_ataques(pokemon_jugador)
         self.ataques_rival = self._seleccionar_ataques(pokemon_rival)
 
         # --- Control de Estado de la Batalla ---
-        self.log = [] # El log empieza vacío
+        self.log = []
         self.turno = 1
-        # --- ¡ARREGLO IMPORTANTE! ---
-        # Añadimos 'partida_terminada' para que exista desde el principio.
         self.partida_terminada = False
 
-
-    def _get_stat(self, pokemon, stat_name):
-        """
-        Método auxiliar para obtener un stat específico del JSON del Pokémon.
-        Busca por 'value', como en tu JSON.
-        """
-        for stat in pokemon.get('stats', []):
-            if stat.get('name') == stat_name:
-                return stat.get('value', 50) # 50 como valor por defecto
-        return 50
 
     def _seleccionar_ataques(self, pokemon):
         """
