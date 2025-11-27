@@ -17,13 +17,18 @@ app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SESSION_PERMANENT'] = False
 app.config['SESSION_USE_SIGNER'] = True
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://usuario:contraseña@servidor/basedatos"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 Session(app)
 
 # === CARGA DE DATOS ===
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_PATH = os.path.join(BASE_DIR, "..", "data", "pokemon.json")
+DB_PATH = os.path.join(BASE_DIR, '..', 'data', 'pokemon.db')
+
+app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_PATH}"
+
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False    
+
+db.init_app(app)
 
 with open(DATA_PATH, "r", encoding="utf-8") as f:
     app.config["DATA"] = json.load(f)
@@ -62,10 +67,11 @@ def logout():
     session.pop('batalla_actual', None)
     return redirect(url_for('home'))
 
-
+# === Comprobar si se crean las talbas===
 @app.cli.command("crear-tablas")
 def crear_tablas():
     print("Creando estructura de base de datos...")
+    db.drop_all()
     db.create_all()
     print("Base de datos creada correctamente.")
 
