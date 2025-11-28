@@ -13,7 +13,7 @@
         <source src="{{ url_for('static', filename='video/pokemon-combate.mp4') }}" type="video/mp4">
         </video>
         <div class="contenedor-dentro">
-            <h1>Welcome to Pokemon Arena</h1>
+            <h1>Register to Pokemon Arena</h1>
             <p>Be the best.</p>
             <!-- Use POST method to save in session -->
             <form method="post" action="{{ url_for('home') }}">
@@ -27,9 +27,8 @@
                         <p style="color: rgb(131, 0, 0);">{{ errorNombre }}</p>
                     {% endif %}
                 <input type="password" name="password" id="password" required minlength="3" maxlength="15">
-                <button type="submit" id="jugar">Play</button>
+                <button type='submit' id="registrarse" action="{{ url_for('home') }}">Register</button>
             </form>
-                <button type='submit' id="registrarse">Register</button>
         </div>
     </div>   
 

@@ -2,11 +2,11 @@ import os
 import random
 from flask import Flask, current_app, json, render_template, request, redirect, url_for, session
 from flask_session import Session
-from App.routes.pokemon_routes import pokemons_bp_lista
-from App.models.batalla import Batalla
-from App.routes.batallas_routes import pokemons_bp_batalla
-from App.database.db import db
-
+from app.routes.pokemon_routes import pokemons_bp_lista
+from app.models.batalla import Batalla
+from app.routes.batallas_routes import pokemons_bp_batalla
+from app.database.db import db
+from app.repositories.entrenador_repo import actualizacionEntrenador,reguistrarEntrenador,autenticarEntrenador
 
 
 app = Flask(__name__)
@@ -34,6 +34,7 @@ with open(DATA_PATH, "r", encoding="utf-8") as f:
     app.config["DATA"] = json.load(f)
 
 # === REGISTRO DEL BLUEPRINT ===
+
 app.register_blueprint(pokemons_bp_lista, url_prefix="/pokemons")
 app.register_blueprint(pokemons_bp_batalla, url_prefix="/batalla")
 
@@ -44,7 +45,7 @@ app.register_blueprint(pokemons_bp_batalla, url_prefix="/batalla")
 def home():
     if request.method == 'POST':
         entrenador = request.form.get('trainer', '').strip()
-        
+
         if entrenador and 3 <= len(entrenador) <= 15:
             session['trainer'] = entrenador
             return redirect(url_for('pokemons_bp_lista.lista'))
@@ -57,7 +58,23 @@ def home():
 
     return render_template('Home.html')
 
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        nombre = request.form.get('trainer', '').strip()
+        password = request.form.get('password', '').strip()
 
+        if not (3 <= len(nombre) <= 15):
+            return render_template('Register.html', errorNombre="El nombre debe tener entre 3 y 15 caracteres.")
+
+        if len(password) < 3:
+            return render_template('Register.html', errorNombre="La contraseña debe tener mínimo 3 caracteres.")
+
+        session['trainer'] = nombre
+
+        return redirect(url_for('home'))
+
+    return render_template('Register.html')
 
 # === RUTA PARA CERRAR SESIÓN ===
 @app.route('/logout')

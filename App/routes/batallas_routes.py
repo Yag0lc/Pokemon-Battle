@@ -1,8 +1,9 @@
 import random
 from flask import Blueprint, app, render_template, request, current_app, session, redirect, url_for
-from App.repositories.pokemon_repo import buscar_por_id,buscar_por_nombre
-from App.models.batalla import Batalla
-from App.routes.pokemon_routes import pokemons_bp_lista
+from app.repositories.pokemon_repo import buscar_por_id,buscar_por_nombre
+from app.models.batalla import Batalla
+from app.routes.pokemon_routes import pokemons_bp_lista
+from app.models.batalla import Batalla
 
 pokemons_bp_batalla = Blueprint('pokemons_bp_batalla', __name__)
 

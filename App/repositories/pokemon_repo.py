@@ -1,5 +1,5 @@
 from flask import json
-from App.models.pokemon import Pokemon 
+from app.models.pokemon import Pokemon 
 
 
 DATA_PATH = "data/pokemon.json"

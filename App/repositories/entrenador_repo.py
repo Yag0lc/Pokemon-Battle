@@ -1,5 +1,5 @@
-from App.models.entrenador import Entrenador
-from App.database.db import db
+from app.models.entrenador import Entrenador
+from app.database.db import db
 
 def crearEntrenador(nombre, password):
     entrenador_nuevo = Entrenador(nombre=nombre, password=password)
@@ -18,7 +18,7 @@ def obtenerTodoEntrenadores():
 
 
 def reguistrarEntrenador(nombre, password):
-    if buscarEntrenador(nombre=nombre) == None:
+    if buscarEntrenador(nombre=nombre) is None:
         return crearEntrenador(nombre= nombre, password = password)
     return None
 
@@ -29,10 +29,12 @@ def borrarEntrenador(entrenador):
     return None
 
 
-def actualizacionEntrenador(entrenador, nuevoNombre, nuevoPassword): 
-    buscarEntrenador(nombre=entrenador.nombre)
-    
-    return None
+def actualizacionEntrenador(entrenador, nuevoNombre, nuevoPassword):
+    entrenador.nombre = nuevoNombre
+    entrenador.password = nuevoPassword
+    db.session.commit()
+    return entrenador       
+
 
 def autenticarEntrenador(nombre, password):
     

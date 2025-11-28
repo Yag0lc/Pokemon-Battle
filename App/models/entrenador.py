@@ -1,4 +1,4 @@
-from App.database.db import db
+from app.database.db import db
 from sqlalchemy import Column, Integer, String
 
 class Entrenador(db.Model):

@@ -1,5 +1,5 @@
 from flask import Blueprint, app, render_template, request, current_app, session, redirect, url_for
-from App.services.pokemon_service import obtener_pokemon_por_id, buscar_por_nombre
+from app.services.pokemon_service import obtener_pokemon_por_id, buscar_por_nombre
 
 
 pokemons_bp_lista = Blueprint('pokemons_bp_lista', __name__)

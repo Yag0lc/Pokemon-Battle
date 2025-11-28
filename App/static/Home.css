@@ -50,7 +50,7 @@ p {
 }
 
 
-#jugar  {
+#jugar, #registrarse  {
     margin-top: 15px;
     padding: 10px 25px;
     font-size: 1.2rem;
@@ -65,7 +65,7 @@ p {
 }
 
 
-#jugar:hover {
+#jugar:hover, #registrarse:hover {
   color: white;
   background-color: #d90000;
   transform: perspective(1px) translateZ(0);
@@ -85,7 +85,7 @@ p {
   }
 }
 
-#jugar {
+#jugar, #registrarse{
   
   animation: pulse 1.5s infinite ease-in-out;
 }
