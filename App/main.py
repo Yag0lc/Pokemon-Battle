@@ -6,8 +6,9 @@ from app.routes.pokemon_routes import pokemons_bp_lista
 from app.models.batalla import Batalla
 from app.routes.batallas_routes import pokemons_bp_batalla
 from app.database.db import db
-from app.repositories.entrenador_repo import actualizacionEntrenador,reguistrarEntrenador,autenticarEntrenador
-
+from app.services.entrenador_service import comprobarEntrenador,registrarEntrenador
+import logging
+logging.basicConfig(level=logging.DEBUG)
 
 app = Flask(__name__)
 
@@ -44,14 +45,15 @@ app.register_blueprint(pokemons_bp_batalla, url_prefix="/batalla")
 @app.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
-        entrenador = request.form.get('trainer', '').strip()
+        nombre = request.form.get('trainer', '').strip()
+        password = request.form.get('password', '').strip()
 
-        if entrenador and 3 <= len(entrenador) <= 15:
-            session['trainer'] = entrenador
-            return redirect(url_for('pokemons_bp_lista.lista'))
+        if nombre and 3 <= len(nombre) <= 15:
+            if comprobarEntrenador(nombre,password):
+                session['trainer'] = nombre
+                return redirect(url_for('pokemons_bp_lista.lista'))
         else:
-            errorNombre = "El nombre del entrenador debe tener entre 3 y 15 caracteres."
-            return render_template('Home.html', errorNombre=errorNombre)
+            return render_template('Home.html', errorNombre="El nombre debe tener entre 3 y 15 caracteres.")
     
     if 'trainer' in session:
         return redirect(url_for('pokemons_bp_lista.lista'))
@@ -66,13 +68,15 @@ def register():
 
         if not (3 <= len(nombre) <= 15):
             return render_template('Register.html', errorNombre="El nombre debe tener entre 3 y 15 caracteres.")
+        
 
         if len(password) < 3:
             return render_template('Register.html', errorNombre="La contraseña debe tener mínimo 3 caracteres.")
 
-        session['trainer'] = nombre
+        entrenador = registrarEntrenador(nombre,password)
+        if entrenador:
+            return render_template('Home.html')
 
-        return redirect(url_for('home'))
 
     return render_template('Register.html')
 

@@ -1,49 +1,44 @@
 from app.models.entrenador import Entrenador
 from app.database.db import db
+from werkzeug.security import generate_password_hash, check_password_hash
+
 
 def crearEntrenador(nombre, password):
-    entrenador_nuevo = Entrenador(nombre=nombre, password=password)
+    hash_password = generate_password_hash(password)
+    entrenador_nuevo = Entrenador(nombre=nombre, password=hash_password)
     db.session.add(entrenador_nuevo)
     db.session.commit()
     return entrenador_nuevo
 
+
 def buscarEntrenador(nombre):
-    entrenador_encontrado = Entrenador.query.filter_by(nombre=nombre).first()
-    if (entrenador_encontrado):
-        return entrenador_encontrado        
-    return None
+    return Entrenador.query.filter_by(nombre=nombre).first()
+
 
 def obtenerTodoEntrenadores():
-    return Entrenador.query.all() 
-
-
-def reguistrarEntrenador(nombre, password):
-    if buscarEntrenador(nombre=nombre) is None:
-        return crearEntrenador(nombre= nombre, password = password)
-    return None
+    return Entrenador.query.all()
 
 def borrarEntrenador(entrenador):
-    if buscarEntrenador(nombre=entrenador.nombre):
-        db.session.delete(entrenador)
-        db.session.commit()
+    db.session.delete(entrenador)
+    db.session.commit()
     return None
 
 
 def actualizacionEntrenador(entrenador, nuevoNombre, nuevoPassword):
     entrenador.nombre = nuevoNombre
-    entrenador.password = nuevoPassword
+    entrenador.password = generate_password_hash(nuevoPassword)
     db.session.commit()
-    return entrenador       
+    return entrenador
 
 
-def autenticarEntrenador(nombre, password):
-    
-    entrenadores = obtenerTodoEntrenadores()
+def comprobarPassword(entrenador, password):
+    return check_password_hash(entrenador.password, password)
 
-    for entrenador in entrenadores:
-        if entrenador.nombre == nombre:
-            if entrenador.password == password:
-                return entrenador
 
-    return None    
-        
+def autenticarUsuario(nombre, password):
+    entrenador = buscarEntrenador(nombre)
+
+    if entrenador and comprobarPassword(entrenador, password):
+        return entrenador   # Login correcto
+
+    return None             # Credenciales inválidas
