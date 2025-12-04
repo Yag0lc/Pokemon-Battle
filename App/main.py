@@ -1,5 +1,6 @@
 import os
 import random
+import sqlite3
 from flask import Flask, current_app, json, render_template, request, redirect, url_for, session
 from flask_session import Session
 from app.routes.pokemon_routes import pokemons_bp_lista
@@ -19,6 +20,15 @@ app.config['SESSION_PERMANENT'] = False
 app.config['SESSION_USE_SIGNER'] = True
 
 Session(app)
+
+def sqlite_creator():
+    conn = sqlite3.connect(DB_PATH)
+    conn.execute("PRAGMA foreign_keys = ON")
+    return conn
+
+app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
+    "creator": sqlite_creator
+}
 
 # === CARGA DE DATOS ===
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
