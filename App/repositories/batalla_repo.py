@@ -12,9 +12,24 @@ def get_stat(pokemon, nombre):
 
 
 
-def crear_batalla(resultado):
+def crear_batalla(resultado, atacante, defensor):
     
-    batalla_nueva = Batalla_db(resultado=resultado, fecha=datetime.now)
+    batalla_nueva = Batalla_db(resultado=resultado, atacante=atacante, defensor=defensor, fecha=datetime.now)
     db.session.add(batalla_nueva)
     db.session.commit()
     return batalla_nueva
+
+def obtener_batalla_id(id):
+
+    return Batalla_db.query.filter_by(id=id).first()
+
+def obtener_batalla_entrenador(entrenador):
+    
+    return Batalla_db.query.filter_by(atacante=entrenador)
+
+def eliminar_batalla(batalla):
+    
+    if db.session.delete(batalla):
+        db.session.commit()
+        return True
+    return None

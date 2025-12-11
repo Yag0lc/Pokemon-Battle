@@ -46,4 +46,6 @@ class Defender(db.Model):
     id_batalla = Column(Integer,ForeignKey('Batalla.id', ondelete='RESTRICT'), primary_key=True)
     id_entrenador = Column(Integer,ForeignKey('entrenadores.id', ondelete='RESTRICT'), primary_key=True)
 
-    batalla = relationship("Batalla_db", back_populates="atacante")
+    pokemon1 = Column(Integer,Pokemon.id)
+
+    batalla = relationship("Batalla_db", back_populates="defensor")
