@@ -16,7 +16,7 @@
             <h1>Register to Pokemon Arena</h1>
             <p>Be the best.</p>
             <!-- Use POST method to save in session -->
-            <form method="post" action="{{ url_for('register') }}">
+            <form method="post" action="{{ url_for('pokemons_bp_home.register') }}">
                 <label for="trainer">Enter your trainer name</label>
                     {% if errorNombre %}
                         <p style="color: rgb(131, 0, 0);">{{ errorNombre }}</p>

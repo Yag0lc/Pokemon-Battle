@@ -20,16 +20,15 @@ def crear_batalla(resultado, atacante, defensor):
     return batalla_nueva
 
 def obtener_batalla_id(id):
-
     return Batalla_db.query.filter_by(id=id).first()
 
-def obtener_batalla_entrenador(entrenador):
-    
+
+def obtener_batalla_entrenador(entrenador):    
     return Batalla_db.query.filter_by(atacante=entrenador)
 
 def eliminar_batalla(batalla):
-    
     if db.session.delete(batalla):
         db.session.commit()
         return True
     return None
+

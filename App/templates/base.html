@@ -10,12 +10,12 @@
 <body>
     <header>
         <nav class="nav">
-            <a class="nav-link active" aria-current="page" href="{{ url_for('home') }}"><strong>Home</strong></a>
+            <a class="nav-link active" aria-current="page" href="{{ url_for('pokemons_bp_home.home') }}"><strong>Home</strong></a>
             <a class="nav-link active" aria-current="page" href="{{ url_for('pokemons_bp_lista.lista') }}"><strong>Pokédex</strong></a>
             
             <!-- Show logout only if there is an active session -->
             {% if session.get('trainer') %}
-            <a class="nav-link active" aria-current="page" href="{{ url_for('logout') }}"><strong>Log Out</strong></a>
+            <a class="nav-link active" aria-current="page" href="{{ url_for('pokemons_bp_home.logout') }}"><strong>Log Out</strong></a>
             {% endif %}
         </nav>
     </header>
