@@ -1,10 +1,8 @@
 import os
-import random
 import sqlite3
 from flask import Flask, current_app, json, render_template, request, redirect, url_for, session
 from flask_session import Session
 from app.routes.pokemon_routes import pokemons_bp_lista
-from app.models.batalla import Batalla
 from app.routes.batallas_routes import pokemons_bp_batalla
 from app.database.db import db
 from app.routes.home_routes import pokemons_bp_home

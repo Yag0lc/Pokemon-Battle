@@ -1,51 +1,68 @@
 from app.database.db import db
-from sqlalchemy import Column, Integer, String, Boolean,Date,ForeignKey
+from sqlalchemy import Column, Integer, Boolean, Date, ForeignKey
 from sqlalchemy.orm import relationship
-from pokemon import Pokemon
+from app.models.pokemon import Pokemon
+
 
 class Batalla_db(db.Model):
+    __tablename__ = 'batalla'
 
-    __tablename__ = 'Batalla'
-
-    id = Column(Integer,primary_key=True, autoincrement=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     resultado = Column(Boolean, nullable=False)
-    fecha = Column(Date,nullable=False)
+    fecha = Column(Date, nullable=False)
 
-    atacante = relationship(
+    atacantes = relationship(
         'Entrenador',
-        secondary='Atacar',
-        back_populates='batallas'
+        secondary='atacar',
+        back_populates='batallas_atacadas'
     )
 
-    defensor = relationship(
+    defensores = relationship(
         'Entrenador',
-        secondary='Defender',
-        back_populates='batallas'
+        secondary='defender',
+        back_populates='batallas_defendidas'
     )
-
-
 
 
 class Atacar(db.Model):
-    __tablename__='Atacar'
+    __tablename__ = 'atacar'
 
-    id_batalla = Column(Integer,ForeignKey('Batalla.id', ondelete='CASCADE'), primary_key=True)
-    id_entrenador = Column(Integer,ForeignKey('entrenadores.id', ondelete='RESTRICT'), primary_key=True)
-    
-    pokemon1 = Column(Integer,Pokemon.id)
+    id_batalla = Column(
+        Integer,
+        ForeignKey('batalla.id', ondelete='CASCADE'),
+        primary_key=True
+    )
 
-    batalla = relationship("Batalla_db", back_populates="atacante")
+    id_entrenador = Column(
+        Integer,
+        ForeignKey('entrenadores.id', ondelete='RESTRICT'),
+        primary_key=True
+    )
 
-
-
+    pokemon_id = Column(
+        Integer,
+        ForeignKey('pokemon.id'),
+        nullable=False
+    )
 
 
 class Defender(db.Model):
-    __tablename__='Defender'
+    __tablename__ = 'defender'
 
-    id_batalla = Column(Integer,ForeignKey('Batalla.id', ondelete='RESTRICT'), primary_key=True)
-    id_entrenador = Column(Integer,ForeignKey('entrenadores.id', ondelete='RESTRICT'), primary_key=True)
+    id_batalla = Column(
+        Integer,
+        ForeignKey('batalla.id', ondelete='CASCADE'),
+        primary_key=True
+    )
 
-    pokemon1 = Column(Integer,Pokemon.id)
+    id_entrenador = Column(
+        Integer,
+        ForeignKey('entrenadores.id', ondelete='RESTRICT'),
+        primary_key=True
+    )
 
-    batalla = relationship("Batalla_db", back_populates="defensor")
+    pokemon_id = Column(
+        Integer,
+        ForeignKey('pokemon.id'),
+        nullable=False
+    )
