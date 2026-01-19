@@ -1,7 +1,7 @@
 from flask import json
 from app.models.pokemon import Pokemon 
 from pathlib import Path
-
+from app.client.json_pokemon import get_pokemon_id, product
 
 DATA_PATH = "data/pokemon.json"
 
@@ -10,11 +10,14 @@ with open(DATA_PATH, "r", encoding="utf-8") as f:
     
 
 def  obtener_pokemons():
-    pokemons = []
-    for p in _POKEMONS: 
-           pokemon = Pokemon(**p) 
-           pokemons.append(pokemon)
-    return pokemons
+    return product
+
+# def  obtener_pokemons():
+#     pokemons = []
+#     for p in _POKEMONS: 
+#            pokemon = Pokemon(**p) 
+#            pokemons.append(pokemon)
+#     return pokemons
 
 def buscar_por_id(id):
     pokemons= obtener_pokemons()
