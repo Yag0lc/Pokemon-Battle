@@ -100,7 +100,7 @@ class Batalla:
             self.vida_jugador -= daño
             hp_restante = self.vida_jugador
 
-        self.log.append(f"{atacante['name']} used {ataque['name']}>")
+        self.log.append(f"{atacante['name']} used {ataque['name']}")
 
         if hp_restante == 0:
             self.log.append(f"¡{defensor['name']} has been weakened!")

@@ -1,6 +1,6 @@
 import os
 import random
-from flask import Flask, current_app, json, render_template, request, redirect, url_for, session
+from flask import Blueprint, Flask, current_app, json, render_template, request, redirect, url_for, session
 from flask_session import Session
 from app.routes.pokemon_routes import pokemons_bp_lista
 from app.models.batalla import Batalla
@@ -75,6 +75,24 @@ def register():
         return redirect(url_for('home'))
 
     return render_template('Register.html')
+
+
+@app.route('/profile', methods=['GET', 'POST'])
+def profile ():
+    pokemons_bp_profile = Blueprint('pokemons_bp_lista', __name__)
+
+    # Verificar que el entrenador esté autenticado
+    if 'trainer' not in session:
+        return redirect(url_for('home'))
+    
+    # Obtener el nombre del entrenador de la sesión
+    trainer = session['trainer']
+    pokemon_profile = current_app.config["DATA"]
+
+    return render_template('profile.html', pokemon=pokemon_profile, trainer=trainer)
+
+
+
 
 # === RUTA PARA CERRAR SESIÓN ===
 @app.route('/logout')

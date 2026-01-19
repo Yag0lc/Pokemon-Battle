@@ -158,6 +158,7 @@ main{
 .battle-log-area {
     display: flex;
     height: auto;
+    max-height: 270px;
     overflow-y: auto;
     width: auto;
     margin-left: 804px;
@@ -249,9 +250,11 @@ main{
   justify-content: center;
 }
 
+
 footer{
   background-color: black;
 }
+
 
 /* COLORES DE LOS BOTONES */
 .movimientos.fairy button { background: #ff78dd; }
