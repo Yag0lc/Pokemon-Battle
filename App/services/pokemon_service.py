@@ -1,6 +1,7 @@
 import app.repositories.pokemon_repo as pokemon_repo
 
 
+
 def listar_pokemon():
      return pokemon_repo.obtener_pokemons()
 
@@ -16,4 +17,8 @@ def buscar_por_nombre(nombre):
         return None
 
     return pokemon_repo.buscar_por_nombre(nombre)
+
+
+
+
 

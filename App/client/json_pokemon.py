@@ -26,12 +26,15 @@ urls = [
 
 ]
 
+def get_pokemons():
+    pokemons = []
+    for url in urls:
+        data = fech_pokemon_default(url)
+        pokemon = adaptar_pokemon(data)
+        pokemons.append(pokemon)
 
-product = []
-for url in urls:
-    data = fech_pokemon_default(url)
-    print(data['id'])
-    product.append(data)
+    return pokemons
+
 
 
 def get_pokemon_id(pokemon_id):
@@ -39,14 +42,53 @@ def get_pokemon_id(pokemon_id):
 
     try:
         resp = requests.get(url, timeout=10)
-        data = fech_pokemon_default(url)
-        print(data['name'])
-        return resp.json()
-        
-    except:
-        return None
-    
+        data = resp.json()  
 
+        pokemon = adaptar_pokemon(data)
+
+        return pokemon
+
+    except:
+        print("Error")
+        return None
+
+    
+def adaptar_pokemon(data):
+    movimientos = []
+    for m in data["moves"]:
+        movimiento = {
+            'nombre': m["move"]["name"],
+            # 'type': m["move"]["type"],
+            # 'poder':  m["move"]["power"],
+            # 'precision':  m["move"]["accuracy"]
+        }
+        movimientos.append(movimiento)
+
+    tipos = []
+    for t in data["types"]:
+        tipos.append(t["type"]["name"])
+
+    stats = []
+    for s in data["stats"]:
+        stat = {
+            'nombre': s["stat"]["name"],
+            'base_stat': s["base_stat"]
+        }
+        stats.append(stat)
+
+    pokemon = {
+        'nombre' : data['name'],
+        'id' : data['id'],
+        'tipo': tipos,
+        'stats': stats,
+        'height': data['height'],
+        'weight': data['weight']
+
+        
+
+    }
+
+    return pokemon
 
 
     # ARquivo script.py
@@ -57,9 +99,12 @@ def funcion_principal():
 if __name__ == "__main__":
     print("Este código execútase cando o script é executado directamente.")
     funcion_principal()
-    get_pokemon_id(9)
+    print(get_pokemon_id(9))
+    print(get_pokemons())
 
     
+
+
 
 
 
