@@ -18,7 +18,14 @@ def batalla():
     trainer_name = session['trainer'] 
     pokemon_nombre = session['pokemon_seleccionado']
     pokemon_list = current_app.config["DATA"]
+
     
+    lista_enemigo = []
+    for p in pokemon_list:              
+        lista_enemigo.append(p)
+
+    enemigo = random.choice(lista_enemigo)
+
     #  Comprobar si ya existe una batalla en curso  
     if 'batalla_actual' in session:
         batalla_obj = session['batalla_actual']       
@@ -40,13 +47,10 @@ def batalla():
         'types': pokemon_jugador.types
     }
 
-        enemigo = None
+        # enemigo = None
 
-        lista_enemigo = []
-        for p in pokemon_list:              
-            lista_enemigo.append(p)
 
-        enemigo = random.choice(lista_enemigo)
+
 
         # --- Listas de Imágenes ---
         character_player_img = [

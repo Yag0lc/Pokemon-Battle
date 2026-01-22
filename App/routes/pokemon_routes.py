@@ -1,5 +1,7 @@
 from flask import Blueprint, app, render_template, request, current_app, session, redirect, url_for
-from app.services.pokemon_service import obtener_pokemon_por_id, buscar_por_nombre
+from app.services.pokemon_service import obtener_pokemon_por_id, buscar_por_nombre, listar_pokemon
+
+
 
 
 pokemons_bp_lista = Blueprint('pokemons_bp_lista', __name__)
@@ -14,7 +16,7 @@ def lista():
     
     # Obtener el nombre del entrenador de la sesión
     trainer = session['trainer']
-    pokemon_list = current_app.config["DATA"]
+    pokemon_list = listar_pokemon()
 
     return render_template('Lista.html', pokemon=pokemon_list, trainer=trainer)
 

@@ -16,12 +16,6 @@ def seleccionar_ataques(pokemon):
     return random.sample(moves, 4)
 
 
-
-
-
-
-
-
 def crear_batalla(resultado, atacante, defensor):
     
     batalla_nueva = Batalla_db(resultado=resultado, atacante=atacante, defensor=defensor, fecha=datetime.now)
