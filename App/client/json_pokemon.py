@@ -56,13 +56,8 @@ def get_pokemon_id(pokemon_id):
 def adaptar_pokemon(data):
     movimientos = []
     for m in data["moves"]:
-        movimiento = {
-            'nombre': m["move"]["name"],
-            # 'type': m["move"]["type"],
-            # 'poder':  m["move"]["power"],
-            # 'precision':  m["move"]["accuracy"]
-        }
-        movimientos.append(movimiento)
+        url = m["move"]["url"]
+    
 
     tipos = []
     for t in data["types"]:
@@ -82,7 +77,8 @@ def adaptar_pokemon(data):
         'tipo': tipos,
         'stats': stats,
         'height': data['height'],
-        'weight': data['weight']
+        'weight': data['weight'],
+        'move':movimientos
 
         
 
@@ -100,7 +96,7 @@ if __name__ == "__main__":
     print("Este código execútase cando o script é executado directamente.")
     funcion_principal()
     print(get_pokemon_id(9))
-    print(get_pokemons())
+    # print(get_pokemons())
 
     
 
