@@ -136,8 +136,8 @@ if __name__ == "__main__":
     print("Este código execútase cando o script é executado directamente.")
     funcion_principal()
     # print(get_pokemon_id(9))
-    print(get_pokemons())
-    # print(get_pokemon_nombre('pikachu'))
+    # print(get_pokemons())
+    print(get_pokemon_nombre('venusaur'))
 
     
 

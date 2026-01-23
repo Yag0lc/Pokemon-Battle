@@ -1,9 +1,10 @@
 import random
 from flask import Blueprint, app, render_template, request, current_app, session, redirect, url_for
-from app.repositories.pokemon_repo import buscar_por_id,buscar_por_nombre
+# from app.repositories.pokemon_repo import buscar_por_id,buscar_por_nombre
 from app.models.batalla import Batalla
 from app.routes.pokemon_routes import pokemons_bp_lista
 from app.models.batalla import Batalla
+from app.services.pokemon_service import listar_pokemon,buscar_por_nombre,obtener_pokemon_por_id
 
 pokemons_bp_batalla = Blueprint('pokemons_bp_batalla', __name__)
 
@@ -17,7 +18,7 @@ def batalla():
 
     trainer_name = session['trainer'] 
     pokemon_nombre = session['pokemon_seleccionado']
-    pokemon_list = current_app.config["DATA"]
+    pokemon_list = listar_pokemon()
 
     
     lista_enemigo = []
@@ -37,14 +38,14 @@ def batalla():
         if not pokemon_jugador:
             return redirect(url_for('pokemons_bp_lista.lista'))
         pokemon_jugador = {
-        'id': pokemon_jugador.id,
-        'name': pokemon_jugador.name,
-        'height': pokemon_jugador.height,
-        'weight': pokemon_jugador.weight,
-        'stats': pokemon_jugador.stats,
-        'sprites': pokemon_jugador.sprites,
-        'moves': pokemon_jugador.moves,
-        'types': pokemon_jugador.types
+        'id': pokemon_jugador['id'],
+        'name': pokemon_jugador['name'],
+        'height': pokemon_jugador['height'],
+        'weight': pokemon_jugador["weight"],
+        'stats': pokemon_jugador['stats'],
+        'sprites': pokemon_jugador['sprites'],
+        'moves': pokemon_jugador['moves'],
+        'types': pokemon_jugador['types']
     }
 
         # enemigo = None
