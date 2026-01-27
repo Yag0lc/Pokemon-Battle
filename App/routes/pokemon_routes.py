@@ -14,11 +14,16 @@ def lista():
     if 'trainer' not in session:
         return redirect(url_for('home'))
     
+    if 'page' not in request.args:
+        return redirect(url_for('pokemons_bp_lista.lista', page=1))
+
+    pagina = request.args.get('page', 1, type=int)
+
     # Obtener el nombre del entrenador de la sesión
     trainer = session['trainer']
-    pokemon_list = listar_pokemon()
+    pokemon_list = listar_pokemon(pagina)
 
-    return render_template('Lista.html', pokemon=pokemon_list, trainer=trainer)
+    return render_template('Lista.html', pokemon=pokemon_list, trainer=trainer, pagina=pagina)
 
 
 @pokemons_bp_lista.route('/lista/<int:pokemon_id>')

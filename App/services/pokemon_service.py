@@ -3,8 +3,8 @@ import app.client.json_pokemon as poke_api
 
 
 
-def listar_pokemon():
-     return poke_api.get_pokemons()
+def listar_pokemon(pagina):
+     return poke_api.get_pokemons(pagina)
 
 # def listar_pokemon():
 #      return pokemon_repo.obtener_pokemons()
@@ -36,6 +36,7 @@ def buscar_por_nombre(nombre):
 #     return pokemon_repo.buscar_por_nombre(nombre)
 
 
-
+def random_combate():
+    return poke_api.get_pokemon_battle()
 
 

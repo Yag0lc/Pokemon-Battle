@@ -1,4 +1,5 @@
 import requests
+import random
 
 def validar_producto(data):
     if "id" not in data or "nombre" not in data:
@@ -21,9 +22,13 @@ def fech_pokemon_default(url):
 
 #CAMBIAR https://dir.gitbook.io/dwes/unidades-didacticas/ud7-aplicaciones-web-hibridas/apis/libreria-requests URL/PARAMS
   
-def get_pokemons():
+def get_pokemons(pagina):
     pokemons = []
-    url= 'https://pokeapi.co/api/v2/pokemon/?limit=5'
+    limit = 5
+    offset = (pagina - 1) * limit
+
+    url = f"https://pokeapi.co/api/v2/pokemon?limit={limit}&offset={offset}"
+
 
     data = fech_pokemon_default(url)
 
@@ -35,8 +40,19 @@ def get_pokemons():
         
     return pokemons
 
-
-
+def get_pokemon_battle():
+    url = 'https://pokeapi.co/api/v2/pokemon/?limit=20000'
+    data = fech_pokemon_default(url)
+    
+    # Escoger un Pokémon al azar de toda la lista
+    random_pokemon = random.choice(data['results'])
+    
+    urlPokemon = random_pokemon['url']
+    resp = requests.get(urlPokemon, timeout=10)
+    dataPokemon = resp.json()
+    
+    pokemon = adaptar_pokemon(dataPokemon)
+    return pokemon
 
 
 def get_pokemon_id(pokemon_id):
@@ -93,11 +109,13 @@ def adaptar_pokemon(data):
         }
         stats.append(stat)  
 
+    default_sprite = "app/static/imagenes/zmissingno_sprite_by_retronc_dg60lg7-fullview.png"
+
     sprites = {
-        "back_default": data['sprites']["back_default"],
-        "back_shiny": data['sprites']["back_shiny"],
-        "front_default": data['sprites']["front_default"],
-        "front_shiny": data['sprites']["front_shiny"]
+        "back_default": data['sprites']["back_default"] or default_sprite,
+        "back_shiny": data['sprites']["back_shiny"] or default_sprite,
+        "front_default": data['sprites']["front_default"] or default_sprite,
+        "front_shiny": data['sprites']["front_shiny"] or default_sprite
     }
     
 

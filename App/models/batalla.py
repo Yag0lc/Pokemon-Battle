@@ -48,24 +48,24 @@ class Batalla:
         self.turno += 1
 
     def resolver_ataque(self, atacante, defensor, ataque):
-        porcentaje = random.randint(1, 100)
-
-        if porcentaje > ataque.get('accuracy', 100):
-            self.log.append(f"{atacante['name']} used {ataque['name']} but failed")
-            return
-
+        power = ataque.get('power')
+        if power is None or power <= 0:
+                power = 0
+        
         if defensor == self.datos_pokemon_rival:
-            daño = int(self.vida_max_rival * ataque.get('power', 50) / 100)
+        
+            daño = int(self.vida_max_jugador * power / 100)
+
             daño = min(daño, self.vida_rival)
             self.vida_rival -= daño
             hp_restante = self.vida_rival
         else:
-            daño = int(self.vida_max_jugador * ataque.get('power', 50) / 100)
+            daño = int(self.vida_max_jugador * power / 100)
             daño = min(daño, self.vida_jugador)
             self.vida_jugador -= daño
             hp_restante = self.vida_jugador
 
-        self.log.append(f"{atacante['name']} used {ataque['name']}")
+        self.log.append(f"{atacante['name']} used {ataque['name']} get a damage of {daño}")
 
         if hp_restante == 0:
             self.log.append(f"¡{defensor['name']} has been weakened!")

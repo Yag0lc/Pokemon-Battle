@@ -4,7 +4,7 @@ from flask import Blueprint, app, render_template, request, current_app, session
 from app.models.batalla import Batalla
 from app.routes.pokemon_routes import pokemons_bp_lista
 from app.models.batalla import Batalla
-from app.services.pokemon_service import listar_pokemon,buscar_por_nombre,obtener_pokemon_por_id
+from app.services.pokemon_service import listar_pokemon,buscar_por_nombre,obtener_pokemon_por_id,random_combate
 
 pokemons_bp_batalla = Blueprint('pokemons_bp_batalla', __name__)
 
@@ -18,15 +18,16 @@ def batalla():
 
     trainer_name = session['trainer'] 
     pokemon_nombre = session['pokemon_seleccionado']
-    pokemon_list = listar_pokemon()
+    # pokemon_list = listar_pokemon()
 
     
-    lista_enemigo = []
-    for p in pokemon_list:              
-        lista_enemigo.append(p)
+    # lista_enemigo = []  
+    # for p in pokemon_list:              
+    #     lista_enemigo.append(p)
 
-    enemigo = random.choice(lista_enemigo)
-
+    # enemigo = random.choice(lista_enemigo)
+    enemigo = random_combate()
+    
     #  Comprobar si ya existe una batalla en curso  
     if 'batalla_actual' in session:
         batalla_obj = session['batalla_actual']       
