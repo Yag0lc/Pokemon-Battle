@@ -8,6 +8,7 @@ from app.models.batalla_db import Batalla_db, Atacar, Defender
 from app.repositories.batalla_repo import obtener_batalla_entrenador
 from app.repositories.pokemon_repo import buscar_por_nombre
 from app.models.batalla import Batalla
+from app.services.pokemon_service import listar_pokemon,buscar_por_nombre,obtener_pokemon_por_id,random_combate
 
 pokemons_bp_batalla = Blueprint('pokemons_bp_batalla', __name__, template_folder='templates')
 

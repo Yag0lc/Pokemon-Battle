@@ -1,5 +1,7 @@
 from flask import Blueprint, app, render_template, request, current_app, session, redirect, url_for
-from app.services.pokemon_service import obtener_pokemon_por_id, buscar_por_nombre
+from app.services.pokemon_service import obtener_pokemon_por_id, buscar_por_nombre, listar_pokemon
+
+
 
 
 pokemons_bp_lista = Blueprint('pokemons_bp_lista', __name__)
@@ -8,15 +10,26 @@ pokemons_bp_lista = Blueprint('pokemons_bp_lista', __name__)
 
 @pokemons_bp_lista.route('/lista', methods=["GET"])
 def lista():
-    # Verificar que el entrenador esté autenticado
     if 'trainer' not in session:
         return redirect(url_for('home'))
-    
-    # Obtener el nombre del entrenador de la sesión
-    trainer = session['trainer']
-    pokemon_list = current_app.config["DATA"]
 
-    return render_template('Lista.html', pokemon=pokemon_list, trainer=trainer)
+    if 'page' not in request.args:
+        return redirect(url_for('pokemons_bp_lista.lista', page=1))
+
+    pagina = request.args.get('page', 1, type=int)
+    trainer = session['trainer']
+
+    data = listar_pokemon(pagina)
+
+    return render_template(
+        'Lista.html',
+        pokemon=data["pokemons"],
+        trainer=trainer,
+        pagina=pagina,
+        hay_siguiente=data["next"] is not None,
+        hay_anterior=data["previous"] is not None
+    )
+
 
 
 @pokemons_bp_lista.route('/lista/<int:pokemon_id>')

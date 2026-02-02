@@ -6,7 +6,7 @@ import random
 from app.models.pokemon import Pokemon_db
 
 def get_stat(pokemon, nombre):
-    for stat in pokemon.get('stats', []):
+    for stat in pokemon['stats']:
         if stat.get('name') == nombre:
             return stat.get('value', 50)
     return 50

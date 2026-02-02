@@ -35,6 +35,32 @@
   {% endfor %}
 </section>
 
+<section class="paginacion">
+
+  {% if hay_anterior %}
+    <a href="{{ url_for('pokemons_bp_lista.lista', page=pagina-1) }}" class="btn-pag">
+      ⬅ Anterior
+    </a>
+  {% else %}
+    <span class="btn-pag disabled">⬅ Anterior</span>
+  {% endif %}
+
+  <span class="pagina-actual">
+    Página {{ pagina }}
+  </span>
+
+  {% if hay_siguiente %}
+    <a href="{{ url_for('pokemons_bp_lista.lista', page=pagina+1) }}" class="btn-pag">
+      Siguiente ➡
+    </a>
+  {% else %}
+    <span class="btn-pag disabled">Siguiente ➡</span>
+  {% endif %}
+
+</section>
+
+
+
 <!-- Combat form only if there is a trainer -->
 {% if trainer %}
 <section class="contenedor-combate">
