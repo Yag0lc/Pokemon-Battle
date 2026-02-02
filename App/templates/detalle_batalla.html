@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='detalle_batalla.css') }}">
+
+<div class="battle-container">
+    <h1>Detalles de la Batalla</h1>
+    
+    <div class="battle-card">
+        <p><strong>ID de Batalla:</strong> #{{ batalla.id }}</p>
+        <p><strong>Fecha:</strong> {{ batalla.fecha.strftime('%Y-%m-%d %H:%M') }}</p>
+        
+        <hr>
+        
+        <p><strong>Entrenador 1 (Tú):</strong> {{ batalla.entrenador_1 }}</p>
+        <p><strong>Entrenador 2 (Rival):</strong> {{ batalla.entrenador_2 }}</p>
+        
+        <hr>
+        
+        <p><strong>Resultado:</strong> 
+            <span class="result-text" style="color: {{ '#2e7d32' if 'victoria' in batalla.resultado|lower else '#d32f2f' }}">
+                {{ batalla.resultado | upper }}
+            </span>
+        </p>
+    </div>
+
+    <br>
+    <a href="{{ url_for('pokemons_bp_batalla.historial') }}" class="btn-back">
+        Volver al Historial
+    </a>
+</div>
+{% endblock %}

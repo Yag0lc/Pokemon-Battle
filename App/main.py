@@ -3,11 +3,16 @@ import random
 from flask import Blueprint, Flask, current_app, json, render_template, request, redirect, url_for, session
 from flask_session import Session
 from app.routes.pokemon_routes import pokemons_bp_lista
-from app.models.batalla import Batalla
 from app.routes.batallas_routes import pokemons_bp_batalla
 from app.database.db import db
-from app.repositories.entrenador_repo import actualizacionEntrenador,reguistrarEntrenador,autenticarEntrenador
+from app.routes.home_routes import pokemons_bp_home
+from app.models.entrenador import Entrenador
+from app.models.batalla_db import Batalla_db
+from app.models.batalla import Batalla
+import logging
+import sqlite3
 
+logging.basicConfig(level=logging.DEBUG)
 
 app = Flask(__name__)
 
@@ -19,11 +24,20 @@ app.config['SESSION_USE_SIGNER'] = True
 
 Session(app)
 
+
 # === CARGA DE DATOS ===
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_PATH = os.path.join(BASE_DIR, "..", "data", "pokemon.json")
 DB_PATH = os.path.join(BASE_DIR, '..', 'data', 'pokemon.db')
 
+def sqlite_creator():
+    conn = sqlite3.connect(DB_PATH , check_same_thread=False)
+    conn.execute("PRAGMA foreign_keys = ON")
+    return conn
+
+app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
+    "creator": sqlite_creator
+}
 app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_PATH}"
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False    
@@ -37,7 +51,7 @@ with open(DATA_PATH, "r", encoding="utf-8") as f:
 
 app.register_blueprint(pokemons_bp_lista, url_prefix="/pokemons")
 app.register_blueprint(pokemons_bp_batalla, url_prefix="/batalla")
-
+app.register_blueprint(pokemons_bp_home, url_prefix='/' )
 
 
 # === RUTA PRINCIPAL ===
@@ -77,23 +91,32 @@ def register():
     return render_template('Register.html')
 
 
-@app.route('/profile', methods=['GET', 'POST'])
-def profile ():
-    pokemons_bp_profile = Blueprint('pokemons_bp_lista', __name__)
-
-    # Verificar que el entrenador esté autenticado
+@app.route('/historial', methods=['GET', 'POST'])
+def profile():
     if 'trainer' not in session:
         return redirect(url_for('home'))
-    
-    # Obtener el nombre del entrenador de la sesión
     trainer = session['trainer']
     pokemon_profile = current_app.config["DATA"]
 
-    return render_template('profile.html', pokemon=pokemon_profile, trainer=trainer)
+    from app.repositories.batalla_repo import obtener_batalla_entrenador
+    batallas = obtener_batalla_entrenador(trainer)
 
+    lista_batallas = []
+    for b in batallas:
+        lista_batallas.append({
+            'id': b.id,
+            'fecha': b.fecha,
+            'entrenador_1': b.entrenador_1,
+            'entrenador_2': b.entrenador_2,
+            'resultado': b.resultado
+        })
 
-
-
+    return render_template(
+        'historial.html',
+        pokemon=pokemon_profile,
+        trainer=trainer,
+        batallas=lista_batallas
+    )
 # === RUTA PARA CERRAR SESIÓN ===
 @app.route('/logout')
 def logout():

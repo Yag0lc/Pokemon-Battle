@@ -21,7 +21,6 @@
        </div>
     </div>
 
-    <!-- enemy -->
     <div class="enemigo-area">
       <div class="enemigo-info">
         <h2>{{ batalla.datos_pokemon_rival.name | title }}</h2>
@@ -34,7 +33,7 @@
       <img src="{{ batalla.datos_pokemon_rival.sprites.front_default }}" alt="{{ batalla.datos_pokemon_rival.name }}" class="pokemon-sprite enemigo-sprite">
     </div>
 
-    <!-- player -->
+
     <div class="player-area">
         <div class="player-info">
           <h2>{{ batalla.datos_pokemon_jugador.name | title }}</h2>
@@ -47,14 +46,10 @@
         <img src="{{ batalla.datos_pokemon_jugador.sprites.back_default }}" alt="{{ batalla.datos_pokemon_jugador.name }}" class="player-sprite">
     </div>
 
-    <!-- bottom panel -->
     <div class="battle-panel">
-        
-        <!-- LOG AREA -->
 
         <div class="battle-log-area">
             <div class="battle-log-messages">
-                <!-- Display log in reverse order (newest first) -->
                 {% for mensaje in batalla.log | reverse %}
                     <p>{{ mensaje }}</p>
                 {% endfor %}
@@ -70,10 +65,8 @@
             </strong></p>
         </div>
 
-        <!-- Moves (Actions) -->
         <div class="ataques">
             {% if not batalla.partida_terminada %}
-                <!-- If the match has NOT ended, display the buttons -->
                 {% for move in batalla.ataques_jugador %}
                 <div class="movimientos {{ move.type }}">
                     <form action="{{ url_for('pokemons_bp_batalla.atacar') }}" method="POST">
@@ -93,7 +86,6 @@
                 </div>
                 {% endfor %}
             {% else %}
-                <!-- If the match HAS ended, display a button to go back -->
                 <div class="movimientos normal" style="width: 100%;">
                      <form action="{{ url_for('pokemons_bp_lista.lista') }}" method="GET">
                         <button type="submit" class="tipo-icono" style="width: 100%; justify-content: center;">

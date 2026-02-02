@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='historial.css') }}">
+
 <h1>Historial de Batallas - {{ trainer }}</h1>
 
+{% if batallas %}
 <table>
   <tr>
     <th>Fecha</th>
@@ -13,7 +16,7 @@
 
   {% for batalla in batallas %}
   <tr>
-    <td>{{ batalla.fecha }}</td>
+    <td>{{ batalla.fecha.strftime('%Y-%m-%d %H:%M') }}</td>
     <td>{{ batalla.entrenador_1 }} vs {{ batalla.entrenador_2 }}</td>
     <td>{{ batalla.resultado }}</td>
     <td>
@@ -22,7 +25,7 @@
       </a>
 
       {% if batalla.entrenador_1 == trainer %}
-        | <a href="{{ url_for('pokemons_bp_batalla.eliminar_batalla', batalla_id=batalla.id) }}">
+        <a href="{{ url_for('pokemons_bp_batalla.eliminar_batalla', batalla_id=batalla.id) }}">
           Eliminar
         </a>
       {% endif %}
@@ -30,4 +33,7 @@
   </tr>
   {% endfor %}
 </table>
+{% else %}
+<p>No hay batallas registradas.</p>
+{% endif %}
 {% endblock %}

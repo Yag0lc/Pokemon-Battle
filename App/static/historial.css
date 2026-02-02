@@ -1,0 +1,133 @@
+:root {
+    --poke-red: #EE1515;
+    --poke-white: #FFFFFF;
+    --poke-dark: #222224;
+    --poke-gray: #F0F0F0;
+    --poke-blue: #3B4CCA;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-image:url(imagenes/Gemini_Generated_Image_9lmoed9lmoed9lmo.png) ;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow-x: hidden;
+    color: var(--poke-dark);
+}
+
+h1 {
+    text-align: center;
+    color: var(--poke-dark);
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 30px 0;
+    position: relative;
+}
+
+h1::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: var(--poke-red);
+    margin: 10px auto;
+    border-radius: 2px;
+}
+
+table {
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: var(--poke-white);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+th {
+    background-color: var(--poke-red);
+    color: var(--poke-white);
+    padding: 18px;
+    text-align: left;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+th:first-child { padding-left: 30px; }
+th:last-child { text-align: center; }
+
+td {
+    padding: 20px 18px;
+    border-bottom: 1px solid #eee;
+    font-size: 0.95rem;
+    vertical-align: middle;
+}
+
+td:first-child {
+    padding-left: 30px;
+    color: #666;
+    font-weight: 500;
+}
+
+td:nth-child(2) {
+    font-weight: bold;
+    color: var(--poke-dark);
+}
+
+td:last-child {
+    text-align: center;
+}
+
+tr:hover td {
+    background-color: #fcebeb;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+td a {
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.8rem;
+    padding: 6px 14px;
+    border-radius: 20px;
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+td a[href*="detalle"] {
+    background-color: #e3f2fd;
+    color: #1565c0;
+}
+
+td a[href*="detalle"]:hover {
+    background-color: #1565c0;
+    color: white;
+}
+
+td a[href*="eliminar"] {
+    background-color: #ffebee;
+    color: #c62828;
+    margin-left: 5px;
+}
+
+td a[href*="eliminar"]:hover {
+    background-color: #c62828;
+    color: white;
+}
+
+p {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #666;
+    margin-top: 40px;
+    font-style: italic;
+}

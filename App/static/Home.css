@@ -65,6 +65,7 @@ p {
 }
 
 
+
 #jugar:hover, #registrarse:hover {
   color: white;
   background-color: #d90000;
@@ -96,7 +97,7 @@ p {
     padding: 10px;
     gap: 10px;
 }
-form{
+form, #registrarse{
     
     display: flex;
     flex-direction: column ;

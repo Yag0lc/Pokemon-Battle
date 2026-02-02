@@ -23,7 +23,7 @@ def lista():
 def datos(pokemon_id):
     # Verificar que el entrenador esté autenticado
     if 'trainer' not in session:
-        return redirect(url_for('home'))
+        return redirect(url_for('pokemon_bp_home.home'))
     
     pokemon = obtener_pokemon_por_id(pokemon_id)
     
