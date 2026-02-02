@@ -2,9 +2,9 @@ import app.repositories.pokemon_repo as pokemon_repo
 import app.client.json_pokemon as poke_api
 
 
-
 def listar_pokemon(pagina):
-     return poke_api.get_pokemons(pagina)
+    return poke_api.get_pokemons(pagina)
+
 
 # def listar_pokemon():
 #      return pokemon_repo.obtener_pokemons()

@@ -23,22 +23,25 @@ def fech_pokemon_default(url):
 #CAMBIAR https://dir.gitbook.io/dwes/unidades-didacticas/ud7-aplicaciones-web-hibridas/apis/libreria-requests URL/PARAMS
   
 def get_pokemons(pagina):
-    pokemons = []
     limit = 5
     offset = (pagina - 1) * limit
-
     url = f"https://pokeapi.co/api/v2/pokemon?limit={limit}&offset={offset}"
-
 
     data = fech_pokemon_default(url)
 
-    for p in data['results']:   
-        urlPokemon= p['url']
-        dataPokemon = fech_pokemon_default(urlPokemon)
+    pokemons = []
+    for p in data['results']:
+        dataPokemon = fech_pokemon_default(p['url'])
         pokemon = adaptar_pokemon(dataPokemon)
         pokemons.append(pokemon)
-        
-    return pokemons
+
+    return {
+        "pokemons": pokemons,
+        "count": data["count"],
+        "next": data["next"],
+        "previous": data["previous"]
+    }
+
 
 def get_pokemon_battle():
     url = 'https://pokeapi.co/api/v2/pokemon/?limit=20000'
@@ -81,20 +84,19 @@ def get_pokemon_nombre(nombre):
     
 def adaptar_pokemon(data):
     movimientos = []
-    cont = 0
-    for m in data["moves"]:
 
+    moves_random = random.sample(
+        data["moves"],
+        k=min(4, len(data["moves"]))
+    )
+
+    for m in moves_random:
         url = m["move"]["url"]
-        respu = requests.get(url, timeout=10)    
-        moves = respu.json()
+        resp = requests.get(url, timeout=10)
+        move_data = resp.json()
 
-        movimiento = adaptar_moves(moves)
-
+        movimiento = adaptar_moves(move_data)
         movimientos.append(movimiento)
-
-        cont=cont+1
-        if cont == 3:
-            break
 
 
     tipos = []

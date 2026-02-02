@@ -10,20 +10,26 @@ pokemons_bp_lista = Blueprint('pokemons_bp_lista', __name__)
 
 @pokemons_bp_lista.route('/lista', methods=["GET"])
 def lista():
-    # Verificar que el entrenador esté autenticado
     if 'trainer' not in session:
         return redirect(url_for('home'))
-    
+
     if 'page' not in request.args:
         return redirect(url_for('pokemons_bp_lista.lista', page=1))
 
     pagina = request.args.get('page', 1, type=int)
-
-    # Obtener el nombre del entrenador de la sesión
     trainer = session['trainer']
-    pokemon_list = listar_pokemon(pagina)
 
-    return render_template('Lista.html', pokemon=pokemon_list, trainer=trainer, pagina=pagina)
+    data = listar_pokemon(pagina)
+
+    return render_template(
+        'Lista.html',
+        pokemon=data["pokemons"],
+        trainer=trainer,
+        pagina=pagina,
+        hay_siguiente=data["next"] is not None,
+        hay_anterior=data["previous"] is not None
+    )
+
 
 
 @pokemons_bp_lista.route('/lista/<int:pokemon_id>')
