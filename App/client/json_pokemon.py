@@ -73,7 +73,7 @@ def get_pokemon_nombre(nombre):
     url = f"https://pokeapi.co/api/v2/pokemon/{nombre}"
 
 
-    resp = requests.get(url, timeout=10)
+    resp = requests.get(url, timeout=100)
     data = resp.json()  
 
     pokemon = adaptar_pokemon(data)
@@ -92,7 +92,7 @@ def adaptar_pokemon(data):
 
     for m in moves_random:
         url = m["move"]["url"]
-        resp = requests.get(url, timeout=10)
+        resp = requests.get(url, timeout=100)
         move_data = resp.json()
 
         movimiento = adaptar_moves(move_data)

@@ -12,7 +12,7 @@
         <nav class="nav">
             <a class="nav-link active" aria-current="page" href="{{ url_for('pokemons_bp_home.home') }}"><strong>Home</strong></a>
             <a class="nav-link active" aria-current="page" href="{{ url_for('pokemons_bp_lista.lista') }}"><strong>Pokédex</strong></a>
-            <a class="nav-link active" aria-current="page" href="{{ url_for('profile') }}"><strong>Profile</strong></a>
+            <a class="nav-link active" aria-current="page" href="{{ url_for('pokemons_bp_perfil.profile') }}"><strong>Profile</strong></a>
            
 
             {% if session.get('trainer') %}

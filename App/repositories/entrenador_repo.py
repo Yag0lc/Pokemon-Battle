@@ -40,14 +40,8 @@ def autenticarUsuario(nombre, password):
     entrenador = buscarEntrenador(nombre)
 
     if entrenador and comprobarPassword(entrenador, password):
-        return entrenador   # Login correcto
+        return entrenador   # Login bien
 
-    return None             # Credenciales inválidas
+    return None             # login inválidas
 
-def obtenerRivalAleatorio(nombre_trainer_actual):
-    entrenadores = Entrenador.query.filter(Entrenador.nombre != nombre_trainer_actual).all()
-    
-    if entrenadores:
-        return random.choice(entrenadores)
-    
-    return None
+

@@ -2,16 +2,7 @@ import random
 from app.repositories.batalla_repo import get_stat, seleccionar_ataques
 
 class Batalla:
-    def __init__(
-        self,
-        pokemon_jugador,
-        pokemon_rival,
-        character_img,
-        enemy_img,
-        enemy_name,
-        trainer_name,
-        id_batalla_db
-    ):
+    def __init__(self, pokemon_jugador, pokemon_rival, character_img, enemy_img, enemy_name, trainer_name, id_batalla_db):
         self.datos_pokemon_jugador = pokemon_jugador
         self.datos_pokemon_rival = pokemon_rival
 

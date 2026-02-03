@@ -4,6 +4,7 @@ from flask import Blueprint, Flask, current_app, json, render_template, request,
 from flask_session import Session
 from app.routes.pokemon_routes import pokemons_bp_lista
 from app.routes.batallas_routes import pokemons_bp_batalla
+from app.routes.perfil_routes import pokemons_bp_perfil
 from app.database.db import db
 from app.routes.home_routes import pokemons_bp_home
 from app.models.entrenador import Entrenador
@@ -52,7 +53,7 @@ with open(DATA_PATH, "r", encoding="utf-8") as f:
 app.register_blueprint(pokemons_bp_lista, url_prefix="/pokemons")
 app.register_blueprint(pokemons_bp_batalla, url_prefix="/batalla")
 app.register_blueprint(pokemons_bp_home, url_prefix='/' )
-
+app.register_blueprint(pokemons_bp_perfil, url_prefix='/historial')
 
 # === RUTA PRINCIPAL ===
 @app.route('/', methods=['GET', 'POST'])
@@ -90,33 +91,6 @@ def register():
 
     return render_template('Register.html')
 
-
-@app.route('/historial', methods=['GET', 'POST'])
-def profile():
-    if 'trainer' not in session:
-        return redirect(url_for('home'))
-    trainer = session['trainer']
-    pokemon_profile = current_app.config["DATA"]
-
-    from app.repositories.batalla_repo import obtener_batalla_entrenador
-    batallas = obtener_batalla_entrenador(trainer)
-
-    lista_batallas = []
-    for b in batallas:
-        lista_batallas.append({
-            'id': b.id,
-            'fecha': b.fecha,
-            'entrenador_1': b.entrenador_1,
-            'entrenador_2': b.entrenador_2,
-            'resultado': b.resultado
-        })
-
-    return render_template(
-        'historial.html',
-        pokemon=pokemon_profile,
-        trainer=trainer,
-        batallas=lista_batallas
-    )
 # === RUTA PARA CERRAR SESIÓN ===
 @app.route('/logout')
 def logout():
@@ -136,3 +110,5 @@ def crear_tablas():
 
 # === EJECUCIÓN ===
 app.run('0.0.0.0', 8080, debug=True)
+
+

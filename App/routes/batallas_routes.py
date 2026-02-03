@@ -6,9 +6,9 @@ from app.models.entrenador import Entrenador
 from app.models.pokemon import Pokemon_db
 from app.models.batalla_db import Batalla_db, Atacar, Defender
 from app.repositories.batalla_repo import obtener_batalla_entrenador
-from app.repositories.pokemon_repo import buscar_por_nombre
+# from app.repositories.pokemon_repo import buscar_por_nombre
 from app.models.batalla import Batalla
-from app.services.pokemon_service import listar_pokemon,buscar_por_nombre,obtener_pokemon_por_id,random_combate
+from app.services.pokemon_service import listar_pokemon ,buscar_por_nombre,obtener_pokemon_por_id,random_combate
 
 pokemons_bp_batalla = Blueprint('pokemons_bp_batalla', __name__, template_folder='templates')
 
@@ -29,16 +29,15 @@ def batalla():
         return redirect(url_for('pokemons_bp_lista.lista'))
 
     datos_jugador = {
-        'id': pokemon_jugador.id,
-        'name': pokemon_jugador.name,
-        'stats': pokemon_jugador.stats,
-        'sprites': pokemon_jugador.sprites,
-        'moves': pokemon_jugador.moves,
-        'types': pokemon_jugador.types
+        'id': pokemon_jugador['id'],
+        'name': pokemon_jugador['name'],
+        'stats': pokemon_jugador['stats'],
+        'sprites': pokemon_jugador['sprites'],
+        'moves': pokemon_jugador['moves'],
+        'types': pokemon_jugador['types']
     }
-    lista_pokemons = current_app.config["DATA"]
-    enemigo = random.choice(lista_pokemons)
 
+    enemigo = random_combate()
     entrenador_actual = Entrenador.query.filter_by(nombre=trainer_name).first()
     if not entrenador_actual:
         return redirect(url_for('home'))
@@ -132,36 +131,3 @@ def verificar_guardar_pokemon(p_id, p_name):
     if not Pokemon_db.query.get(p_id):
         db.session.add(Pokemon_db(id=p_id, name=p_name))
         db.session.commit()
-
-@pokemons_bp_batalla.route("/batalla/historial")
-@pokemons_bp_batalla.route("/historial")
-def historial():
-    if 'trainer' not in session:
-        return redirect(url_for('home'))
-
-    trainer_name = session['trainer']
-    batallas = obtener_batalla_entrenador(trainer_name)
-
-    return render_template("historial.html", batallas=batallas, trainer=trainer_name)
-
-@pokemons_bp_batalla.route("/<int:batalla_id>")
-def detalle_batalla(batalla_id):
-    batalla = Batalla_db.query.get_or_404(batalla_id)
-    return render_template("detalle_batalla.html", batalla=batalla)
-
-
-@pokemons_bp_batalla.route("/eliminar/<int:batalla_id>")
-def eliminar_batalla(batalla_id):
-    if 'trainer' not in session:
-        return redirect(url_for('home'))
-
-    batalla = Batalla_db.query.get_or_404(batalla_id)
-
-    if batalla.entrenador_1 == session['trainer']:
-        Atacar.query.filter_by(id_batalla=batalla.id).delete()
-        Defender.query.filter_by(id_batalla=batalla.id).delete()
-        
-        db.session.delete(batalla)
-        db.session.commit()
-
-    return redirect(url_for("pokemons_bp_batalla.historial"))
