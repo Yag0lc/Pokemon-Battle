@@ -1,17 +1,7 @@
 import requests
 import random
 
-def validar_producto(data):
-    if "id" not in data or "nombre" not in data:
-        return False
-    return True
 
-def adaptar_producto(data):
-    return {
-        "id": data["id"],
-        "name": data["name"],
-        "type": data["type"]
-    }
 
 def fech_pokemon_default(url):
 
