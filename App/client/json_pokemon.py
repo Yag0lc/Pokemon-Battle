@@ -3,6 +3,7 @@ import random
 
 
 
+
 def fech_pokemon_default(url):
 
     response = requests.get(url)
