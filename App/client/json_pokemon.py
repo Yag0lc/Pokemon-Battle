@@ -1,17 +1,40 @@
 import requests
 import random
+import time
 
+CACHE = {}
+CACHE_TTL = 60      
+CACHE_MAX_SIZE = 50  
+
+
+
+
+def get_cache(key):
+    if key in CACHE:
+        data, caduca = CACHE[key]
+        if time.time() < caduca:
+            return data
+    return None
+
+
+def set_cache(key, data):
+    CACHE[key] = (data, time.time() + CACHE_TTL)
 
 
 
 def fech_pokemon_default(url):
+    cache_data = get_cache(url)
+    if cache_data:
+        return cache_data
 
-    response = requests.get(url)
-    return response.json()
+    response = requests.get(url, timeout=10)
+    data = response.json()
+
+    set_cache(url, data)
+    return data
 
 
 
-#CAMBIAR https://dir.gitbook.io/dwes/unidades-didacticas/ud7-aplicaciones-web-hibridas/apis/libreria-requests URL/PARAMS
   
 def get_pokemons(pagina):
     limit = 5
